@@ -1,0 +1,6 @@
+services:
+  web:
+    restart: always
+    image: constantine-online
+    ports:
+      - "80:80"
