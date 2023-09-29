@@ -3,4 +3,4 @@ services:
     restart: always
     image: constantine-online
     ports:
-      - "81:81"
+      - "81:8080"

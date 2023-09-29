@@ -4,9 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="cf29b0f6-9943-46aa-b872-cf52eb36dff6" name="Changes" comment="oopsie 4.0">
+    <list default="true" id="cf29b0f6-9943-46aa-b872-cf52eb36dff6" name="Changes" comment="oopsie 5.0">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/compose.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/compose.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -145,7 +146,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1696023501360</updated>
-      <workItem from="1696023502545" duration="5016000" />
+      <workItem from="1696023502545" duration="5154000" />
     </task>
     <task id="LOCAL-00001" summary="initial commit">
       <option name="closed" value="true" />
@@ -187,7 +188,15 @@
       <option name="project" value="LOCAL" />
       <updated>1696029801273</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="oopsie 5.0">
+      <option name="closed" value="true" />
+      <created>1696029935181</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1696029935181</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -211,6 +220,7 @@
     <MESSAGE value="oopsie 2.0" />
     <MESSAGE value="oopsie 3.0" />
     <MESSAGE value="oopsie 4.0" />
-    <option name="LAST_COMMIT_MESSAGE" value="oopsie 4.0" />
+    <MESSAGE value="oopsie 5.0" />
+    <option name="LAST_COMMIT_MESSAGE" value="oopsie 5.0" />
   </component>
 </project>

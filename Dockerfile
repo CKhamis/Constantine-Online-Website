@@ -4,5 +4,5 @@ RUN gradle installBootDist
 
 FROM amazoncorretto:17
 COPY --from=BUILDER /home/gradle/build/install/ckow-boot .
-EXPOSE 81
+EXPOSE 8080
 CMD ["./bin/ckow"]
