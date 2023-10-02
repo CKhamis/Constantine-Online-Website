@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head th:fragment="head(page_title)" lang="en">
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="icon" th:href="@{/icons/Logo.svg}" />
+<!--    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">-->
+    <link rel="stylesheet" th:href="@{${theme}}" />
+    <link rel="stylesheet" th:href="@{/Styles.css}" />
+    <title th:text="'Constantine Khamis | ' + ${page_title}"></title>
+</head>
+
+<th:block th:fragment="JS">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+</th:block>
+
+<body>
+
+<div th:fragment="main-navigation" class="position-sticky" style="z-index:99; width:100%;top:0;opacity:95%">
+    <nav th:fragment="topNav" class="navbar navbar-expand-lg navbar-dark nav">
+        <script th:replace="Components :: network-util"></script>
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">
+                <img th:src="@{/icons/Logo.svg}" alt="costi online logo" width="30" height="30" class="d-inline-block align-text-top">
+                <strong class="text-1">Costi Online</strong>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="true" aria-label="Toggle navigation">
+                <svg class="bi bi-list hamburger-menu-icon" width="24" height="24" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M1.5 2.75A.75.75 0 0 1 2.25 2h11.5a.75.75 0 0 1 0 1.5H2.25a.75.75 0 0 1-.75-.75zM1.5 7.75A.75.75 0 0 1 2.25 7h11.5a.75.75 0 0 1 0 1.5H2.25a.75.75 0 0 1-.75-.75zM1.5 12.75a.75.75 0 0 1 .75-.75h11.5a.75.75 0 0 1 0 1.5H2.25a.75.75 0 0 1-.75-.75z"/>
+                </svg>
+            </button>
+            <div class="navbar-collapse collapse" id="navbarToggleExternalContent">
+                <div class="navbar-nav">
+                    <a class="nav-link px-3" aria-current="page" href="/">Home</a>
+                    <a class="nav-link px-3" href="/Projects">Projects</a>
+                    <a class="nav-link px-3" href="/Media">Media</a>
+                    <a class="nav-link px-3" href="/Wiki">Wiki</a>
+                    <a class="nav-link px-3" href="/Newsroom">Newsroom</a>
+                    <a class="nav-link px-3" href="/Labs">Labs</a>
+                    <a class="nav-link px-3" href="/Minecraft">Minecraft</a>
+                    <a class="nav-link px-3" href="/About">About</a>
+
+                    <li class="nav-item dropdown px-3">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Account
+                        </a>
+                        <ul th:unless="${loggedIn}" class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="/SignUp">Sign Up</a></li>
+                            <li><a class="dropdown-item" href="/Account">Sign In</a></li>
+                        </ul>
+
+                        <ul th:if="${loggedIn}" class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item fw-bold" href="/Account" th:text="|${user.firstName} ${user.lastName}|">Action</a></li>
+                            <li id="nav-notification-container"></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="/Account">Account Settings</a></li>
+                            <li class="dropdown-item">
+                                <form th:action="@{/logout}" method="post">
+                                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+                                    <button type="submit" class="btn btn-link p-0 text-1 text-decoration-none">Logout</button>
+                                </form>
+                            </li>
+                            <div th:replace="Components :: nav-logic"></div>
+                        </ul>
+                    </li>
+                </div>
+            </div>
+        </div>
+    </nav>
+</div>
+
+<script th:fragment="nav-logic">
+    //Requires network-util & nav to function
+
+    // Elements
+    let navContainer = document.querySelector("#nav-notification-container");
+
+    // Data
+    let navNotifications;
+
+    // fetch
+    function navRefresh(){
+        fetch("/api/notifications/all")
+            .then(checkStatus)
+            .then(response => response.json())
+            .then(data => {
+                navNotifications = data;
+                renderNavNotifications()
+            })
+            .catch(error => {
+                // error handling
+                console.error('Error retrieving data:', error);
+            });
+    }
+    navRefresh();
+    setInterval(navRefresh, 60000);
+
+    function deleteNotification(id){
+        postData("/api/notifications/delete", id)
+            .catch(err => {
+                console.log(err);
+            })
+            .then(navRefresh);
+    }
+
+    // Render
+    function renderNavNotifications(){
+        if(navNotifications.length > 0){
+            let content = ``;
+            for(let i = navNotifications.length-1; i >= 0; i--){
+                let notification = navNotifications[i];
+
+                content += `
+                    <div class="alert alert-${notification.notificationType} alert-dismissible fade show" role="alert">
+                        <p class="fw-bold d-inline">${notification.title} • </p>
+                        <p class="d-inline">${notification.timeSinceCreated}</p>
+                        <a class="btn-close" onclick="deleteNotification(${notification.id})"></a>
+                        <p>${notification.body}</p>
+                    </div>
+                `;
+            }
+            navContainer.innerHTML = content;
+        }else{
+            navContainer.innerHTML = "<p class='text-center'>No Notifications</p>";
+        }
+    }
+</script>
+
+<script th:fragment="network-util">
+    function postData(url, data) {
+        // Retrieve the CSRF token from the meta tags
+        let csrfToken = document.querySelector('meta[name="_csrf"]').getAttribute('content');
+        let csrfHeader = document.querySelector('meta[name="_csrf_header"]').getAttribute('content');
+
+        // Create the fetch request headers and include the CSRF token
+        let headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+        headers.append(csrfHeader, csrfToken);
+
+        // Create the fetch options
+        let options = {
+            method: 'POST',
+            headers: headers,
+            body: JSON.stringify(data)
+        };
+
+        // Perform the fetch request
+        return fetch(url, options)
+            .then(checkStatus)
+            .then(response => response.json());
+    }
+    function checkStatus(response){
+        if(response.ok){
+            return Promise.resolve(response);
+        }else{
+            return Promise.reject(response);
+        }
+    }
+</script>
+
+<script th:fragment="lazy-loading">
+    function getFooterHeight() {
+        const footer = document.querySelector('footer');
+        return footer ? footer.offsetHeight : 0;
+    }
+</script>
+
+<script th:fragment="axcel-sprite-logic">
+    //Axcel game
+    let numFoundSprites = 0;
+    let quota = 0;
+    let timeNow, localTimeChecked;
+
+    $('.sprite').click(function() {
+        let spriteName = $(this).data('sprite-name');
+        let sprite = $(this); // save a reference to the clicked sprite element
+        $.post("/games/Axcel/found-sprite", { spriteName: spriteName }, function(response) {
+            if (response.success) {
+                sprite.animate({ height: '0px' }, 500, function() {
+                    sprite.css("display", "none");
+                });
+                numFoundSprites = response.foundSprites.length;
+                $("#toy-counter").text(numFoundSprites + " / " + quota);
+            } else {
+                alert(response.message);
+            }
+        });
+    });
+
+    function updateSpriteVisibility(foundSprites) {
+        $(".sprite").each(function() {
+            let spriteName = $(this).data("sprite-name");
+            if ($.inArray(spriteName, foundSprites) !== -1) {
+                $(this).css("display", "none");
+            } else {
+                $(this).css("display", "block");
+            }
+        });
+    }
+
+    function hideTimer(){
+        let timer = $("#timer-container");
+        timer.css("left", "50px");
+        timer.animate({ left: '-200px' }, 600, function() {
+            timer.css("display", "none");
+        });
+    }
+
+    function showTimer(){
+        let timer = $("#timer-container");
+        timer.css("left", "-200px");
+        timer.css("display", "block");
+        timer.animate({ left: '50px' }, 600);
+    }
+
+    function showHint(text){
+        $("#toast-text").text(text);
+        $("#toast-container").fadeIn(2000).delay(4000).fadeOut(2000);
+    }
+
+    function startTimer(startTimeString) {
+        // Parse the start time string into a Date object
+        let startTime = new Date(Date.parse(startTimeString));
+
+        // Check if the start time is a valid date object
+        if (isNaN(startTime.getTime())) {
+            console.error("Invalid start time:", startTimeString);
+            return;
+        }
+
+        // Calculate the elapsed time
+        let timeDifference = getTimeDifference(startTime, timeNow);
+        let seconds = timeDifference.seconds;
+        // Add a leading zero to seconds if it's a single digit
+        if (seconds < 10) {
+            seconds = '0' + seconds;
+        }
+        let timeString = timeDifference.minutes + ":" + seconds;
+
+        // Display the elapsed time in minutes and seconds
+        $("#timer").text(timeString);
+
+        // Schedule the next update in 1 second
+        setTimeout(function() {
+            startTimer(startTimeString);
+        }, 1000);
+    }
+
+    function countSpritesOnPage(){
+        let count = $('.sprite').filter(function() {
+            return $(this).css('display') === 'block';
+        }).length;
+        return count;
+    }
+
+    function getTimeDifference(start, end) {
+        // Calculate the time difference in milliseconds (local)
+        let currentLocalTIme = new Date();
+        let localTimeDiff = currentLocalTIme - localTimeChecked;
+        console.log(localTimeDiff);
+
+        // Calculate the time difference in milliseconds (server)
+        let serverTimeDiff = end - start;
+
+        // Combine local and server times to get the elapsed time
+        let timeDiff = localTimeDiff + serverTimeDiff;
+
+        // Calculate the number of minutes and seconds
+        let minutes = Math.floor(timeDiff / 60000);
+        let seconds = Math.floor((timeDiff % 60000) / 1000);
+
+        return { minutes: minutes, seconds: seconds };
+    }
+</script>
+
+<script th:fragment="axcel-game">
+    // Everything except for home page
+    $(document).ready(function() {
+        checkGameStarted();
+    });
+
+    function checkGameStarted() {
+        $.ajax({
+            url: "/games/Axcel/check-game-status",
+            type: "GET",
+            success: function(response) {
+                if (response.gameStarted) {
+                    showTimer();
+                    startTimer(response.timeStart);
+                    updateSpriteVisibility(response.foundSprites);
+                    quota = response.quota;
+                    numFoundSprites = response.foundSprites.length;
+                    timeNow = new Date(Date.parse(response.timeNow));
+                    localTimeChecked = new Date();
+                    $("#toy-counter").text(numFoundSprites + " / " + quota);
+                    showHint(countSpritesOnPage() + " toys left here!");
+                }
+            },
+            error: function(xhr, status, error) {
+                // Handle any errors that occur during the AJAX request
+                alert("Error checking if game has started: " + error);
+            }
+        });
+    }
+</script>
+
+<div th:fragment="flash" th:if="${flash != null}" th:class="'alert alert-dismissible fade show alert-' + ${#strings.toLowerCase(flash.status)}" role="alert">
+    <div class="fw-bold d-inline" th:text="${flash.title}"></div>
+    <div class="d-inline" th:text="${flash.message}"></div>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+
+<div th:fragment="message" th:if="${message != null}" class="alert alert-dismissible fade show" style="background-color:rgba(0,0,0,.1); border: 1px black solid;">
+    <div class="fw-bold d-inline" th:text="${message.title}"></div>
+    <div class="d-inline" th:text="${message.body}"></div>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+
+<th:block th:fragment="announcements">
+    <div id="announcementContainer" class="container mt-3"></div>
+</th:block>
+
+<script th:fragment="announcementScript">
+    const announcementContainer = document.querySelector("#announcementContainer");
+    let announcements = fetch("/api/announcements/all")
+        .then(checkStatus)
+        .then(response => response.json())
+        .then(data => {
+            announcements = data;
+            renderAnnouncements();
+        })
+        .catch(error => {
+            announcementContainer.innerHTML = `
+                <h3 class="text-center fw-bold">Error getting announcements</h3>
+                <p class="text-secondary text-center">${error}</p>
+            `;
+            console.error(error);
+        });
+    function renderAnnouncements(){
+        let content = ``;
+
+        if(announcements.length > 0){
+            content += "<h3>📢Announcements</h3>"
+        }
+        for(let announcement of announcements){
+            content += `
+                <div class="alert alert-dismissible fade show" style="background-color:rgba(0,0,0,.1); border: 1px black solid;">
+                    <div class="fw-bold d-inline">${announcement.title}</div>
+                    <div class="d-inline">${announcement.body}</div>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            `;
+        }
+        announcementContainer.innerHTML = content;
+    }
+
+</script>
+
+<div th:fragment="dialogue-box" class="container-fluid position-fixed" id="dialogue-container" style="display:none;bottom:0px; background-image: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0) 100%);">
+    <div class="row" style="bottom: 50px; position: relative">
+        <div class="d-none d-md-block col-md-1 col-lg-2"></div>
+        <div class="col-12 col-md-10 col-lg-8">
+            <div>
+                <img th:src="@{images/games/axcel/sitting.gif}" style="height:100px;"/>
+            </div>
+            <div class="alert alert-primary mb-0">
+                <h3 class="fw-bold float-start" id="dialogue-name">Axcel</h3>
+                <p class="float-end text-decoration-underline" id="dialogue-skip" style="cursor: pointer">Skip</p>
+                <br clear="all">
+                <p class="mb-1" id="dialogue-message">adf asdfua fdaufd asfud asdfnasdf asldfh dfjha sfdkjahf as fdaksjdf asdfhsd fjhaksdfjh sdfs df sdd sdfj adf</p>
+                <p class="text-decoration-underline mb-0" id="dialogue-next" style="cursor: pointer">Next</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div th:fragment="timer-box" class="alert alert-dark position-fixed" style="bottom: 20px; left:50px;display: none;z-index: 99" id="timer-container">
+    <img th:src="@{/icons/Timer.svg}" class="float-start"  alt="timer icon" style="width:20px; margin-right: 10px; padding-top:2px;">
+    <p class="float-start mb-0 ml-1" id="timer"></p>
+    <br clear="all">
+    <img th:src="@{/icons/Toys.svg}" class="float-start"  alt="timer icon" style="width:20px; margin-right: 10px; padding-top:4px;">
+    <p class="float-start mb-0 ml-1" id="toy-counter">1/1</p>
+</div>
+
+<div th:fragment="toast-box" class="alert alert-info position-fixed" style="bottom: 20px; right:50px;display: none;z-index: 99" id="toast-container">
+    <p class="float-start mb-0 ml-1" id="toast-text"></p>
+</div>
+
+<div th:fragment="footer" class="text-1 tiled-COW-background" id="footer">
+    <div class="container py-5">
+        <footer>
+            <div class="row g-4 row-cols-1 row-cols-lg-5">
+                <div class="col">
+                    <a href="/About#website" class="d-flex align-items-center mb-3 link-dark text-decoration-none">
+                        <img th:src="@{/icons/Constantine Logo v5.svg}" alt="Constantine Logo" class="me-2"  style="width:40px">
+                    </a>
+                    <p class="color-light">Costi Online is developed by Constantine Khamis. Linux support by Cory Robertson</p>
+                </div>
+
+                <div class="col d-lg-block d-xs-none">
+
+                </div>
+
+                <div class="col">
+                    <h5 class="fw-bold">Costi Online</h5>
+                    <ul class="p-0">
+                        <li class="nav-item mb-2"><a href="/" class="nav-link p-0 text-1">Home</a></li>
+                        <li class="nav-item mb-2"><a href="/Newsroom" class="nav-link p-0 text-1">Newsroom</a></li>
+                        <li class="nav-item mb-2"><a href="/Wiki" class="nav-link p-0 text-1">Wiki</a></li>
+                        <li class="nav-item mb-2"><a href="/About" class="nav-link p-0 text-1">About</a></li>
+                    </ul>
+                </div>
+
+                <div class="col">
+                    <h5 class="fw-bold">Costi Projects</h5>
+                    <ul class="p-0">
+                        <li class="nav-item mb-2"><a href="/Labs/LED" class="nav-link p-0 text-1">LED Controller</a></li>
+                        <li class="nav-item mb-2"><a href="/Projects" class="nav-link p-0 text-1">Coding Projects</a></li>
+                        <li class="nav-item mb-2"><a href="/Media#series" class="nav-link p-0 text-1">Costi Media Projects</a></li>
+                        <li class="nav-item mb-2"><a href="/Minecraft/gov" class="nav-link p-0 text-1">Minecraft Government</a></li>
+                    </ul>
+                </div>
+
+                <div class="col">
+                    <h5 class="fw-bold">Costi Online</h5>
+                    <ul class="p-0">
+                        <li class="nav-item mb-2"><a href="/Account" class="nav-link p-0 text-1">Account Settings</a></li>
+                        <li class="nav-item mb-2"><a href="/Wiki/Create" class="nav-link p-0 text-1">Add to Costipedia</a></li>
+                        <li class="nav-item mb-2"><a href="/Labs" class="nav-link p-0 text-1">Labs</a></li>
+                    </ul>
+                </div>
+            </div>
+            <nav class="d-flex justify-content-center mt-2">
+                <a class="px-3 text-1" href="https://www.instagram.com/costikhamis/">Instagram</a>
+                <p>|</p>
+                <a class="px-3 text-1" href="https://www.youtube.com/@costimedia /">YouTube</a>
+                <p>|</p>
+                <a class="px-3 text-1" href="https://github.com/CKhamis">GitHub</a>
+            </nav>
+        </footer>
+    </div>
+</div>
+
+</body>
+</html>
