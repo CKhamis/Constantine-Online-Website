@@ -1,0 +1,18 @@
+BEGIN:VCARD
+VERSION:3.0
+FN:Constantine Johnny Khamis
+N:Khamis;Constantine;Johnny;;
+item1.EMAIL;TYPE=INTERNET:constantine@constantinekhamis.com
+item1.X-ABLabel:
+TEL;TYPE=CELL:(408) 460-6391
+item2.ORG:City of San Jose
+item2.X-ABLabel:
+item3.TITLE:Cyber Security Intern
+item3.X-ABLabel:
+BDAY:20010713
+item4.URL:constantinekhamis.com
+item4.X-ABLabel:PROFILE
+PHOTO:https://lh3.googleusercontent.com/contacts/ADlvnhL0_DVwvVscgz2vhUBLPk
+ 1UGnv0q3OhytLdMpQoaF4KCwZZ2t7X
+CATEGORIES:myContacts
+END:VCARD
