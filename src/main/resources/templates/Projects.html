@@ -30,53 +30,56 @@
         });
 
     //Render
-    function displayProjects(data){
-        let currentEra = ``;
-        let insertHTML = data.map(project => {
+    function displayProjects(data) {
+        let currentEra = '';
+        let insertHTML = '';
+
+        data.forEach(project => {
             const links = project.repositoryLinks.map((link, index) => `<a href="${link}" class="btn btn-primary mb-3" style="margin-right:10px;">Repository ${index + 1}</a>`).join('');
-            let badge = ``;
-            if(!project.discontinued){
-                badge = `<span class="badge rounded-pill bg-success">Active</span>`
+            let badge = '';
+            if (!project.discontinued) {
+                badge = `<span class="badge rounded-pill bg-success">Active</span>`;
             }
 
             let cardContent = `
-                <div class="my-2 col-12 col-md-6 col-lg-4 px-2">
-                    <div class="card border-box ${project.type} " id="${project.id}">
-                        <img src="https://costionline.com${project.imagePath}" class="card-img-top" alt="${project.title}">
-                        <div class="card-body mx-md-1 mx-4">
-                            <h5 class="card-title fw-bold fs-4">${project.title} ${badge}</h5>
-                            <p class="text-secondary">${project.subtitle}</p>
-                            <p class="card-text fs-5">${project.description}</p>
-                            ${links}
-                        </div>
+            <div class="my-2 col-12 col-md-6 col-lg-4 px-2">
+                <div class="card border-box ${project.type} " id="${project.id}">
+                    <img src="https://costionline.com${project.imagePath}" class="card-img-top" alt="${project.title}">
+                    <div class="card-body mx-md-1 mx-4">
+                        <h5 class="card-title fw-bold fs-4">${project.title} ${badge}</h5>
+                        <p class="text-secondary">${project.subtitle}</p>
+                        <p class="card-text fs-5">${project.description}</p>
+                        ${links}
                     </div>
                 </div>
+            </div>
+        `;
 
-            `;
-
-            if(currentEra !== project.era){
-                if(currentEra == ``){
-                    // First section
-                    cardContent = `
-                    <div class="row">
-                        <h3 id="${project.era}" class="fs-3 text-center fw-bold col-12">${project.era.toUpperCase()} ERA</h3>
-                        ${cardContent}`;
-                }else{
-                    // Non - First section
-                    cardContent = `
-                    </div>
-                    <div class="row">
-                        <h3 id="${project.era}" class="fs-3 text-center fw-bold col-12">${project.era.toUpperCase()} ERA</h3>
-                        ${cardContent}`;
+            if (currentEra !== project.era) {
+                if (currentEra !== '') {
+                    // Close the previous era section if not the first one
+                    insertHTML += '</div>';
                 }
-
+                // Start a new era section
+                insertHTML += `
+                <div class="row">
+                    <h3 id="${project.era}" class="fs-3 text-center fw-bold col-12">${project.era.toUpperCase()} ERA</h3>
+            `;
                 currentEra = project.era;
             }
-            return cardContent;
+
+            insertHTML += cardContent;
         });
 
-        container.innerHTML = insertHTML.join("") + "</div>";
+        // Close the last era section if there are any
+        if (currentEra !== '') {
+            insertHTML += '</div>';
+        }
+
+        // Insert the HTML into the container
+        container.innerHTML = insertHTML;
     }
+
 </script>
 </body>
 </html>
