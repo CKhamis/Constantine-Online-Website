@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xml:th="https://www.thymeleaf.org">
+<head th:replace="Components :: head('Home')"></head>
+<body class="bg-1 text-1">
+<div th:replace="Components :: main-navigation"></div>
+<main class="container-fluid px-4 py-5">
+    <div id="main-content"></div>
+</main>
+<div th:replace="Components :: JS"></div>
+<div th:replace="Components :: footer"></div>
+<script>
+    // Select parent element
+    const container = $("#main-content");
+
+    //fetch functions
+    fetch("https://costionline.com/api/Projects/all")
+        .then(checkStatus)
+        .then(response => response.json())
+        .then(data => {
+            // Process the retrieved data
+            displayProjects(data)
+        })
+        .catch(error => {
+            // error handling
+            container.append($("<h3 class=\"text-center\">There was an error receiving data from Costi Online Services</h3><p class=\"text-center\">Please check the console for further information</p>"));
+            console.error('Error retrieving data:', error);
+        })
+        .finally(() => $("#loading").hide());
+
+    //Render
+    function displayProjects(data){
+        let currentEra = ``;
+        let insertHTML = data.map(project => {
+            const links = project.repositoryLinks.map((link, index) => `<a href="${link}" class="btn btn-primary mb-3" style="margin-right:10px;">Repository ${index + 1}</a>`).join('');
+            let divider = ``;
+            let badge = ``;
+            if(!project.discontinued){
+                badge = `<span class="badge rounded-pill bg-success">Active</span>`
+            }
+
+            if(currentEra !== project.era){
+                divider = `<h3 id="${project.era}" class="fs-3 text-center fw-bold">${project.era.toUpperCase()} ERA</h3>`;
+                currentEra = project.era;
+            }
+            return `
+            ${divider}
+            <div class="card border-box my-5 ${project.type}" id="${project.id}">
+                <img src="${project.imagePath}" class="card-img-top" alt="${project.title}">
+                <div class="card-body px-lg-5 px-4 blue-v-gradient">
+                    <h5 class="card-title fw-bold fs-4">${project.title} ${badge}</h5>
+                    <p class="text-secondary">${project.subtitle}</p>
+                    <p class="card-text fs-5">${project.description}</p>
+                    ${links}
+                </div>
+            </div>
+            `;
+        });
+        container.append(insertHTML);
+    }
+</script>
+</body>
+</html>

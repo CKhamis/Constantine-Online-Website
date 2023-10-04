@@ -26,4 +26,9 @@ public class FrontEndController {
     public String getHome() {
         return "Home";
     }
+
+    @RequestMapping("/Projects")
+    public String getProjects() {
+        return "Projects";
+    }
 }
