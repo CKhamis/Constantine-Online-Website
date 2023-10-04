@@ -34,16 +34,15 @@
         let currentEra = ``;
         let insertHTML = data.map(project => {
             const links = project.repositoryLinks.map((link, index) => `<a href="${link}" class="btn btn-primary mb-3" style="margin-right:10px;">Repository ${index + 1}</a>`).join('');
-            let divider = ``;
             let badge = ``;
             if(!project.discontinued){
                 badge = `<span class="badge rounded-pill bg-success">Active</span>`
             }
 
             let cardContent = `
-                <div class="card border-box my-5 ${project.type} col-12 col-md-6 col-lg-3" id="${project.id}">
-                    <img src="http://costionline.com/${project.imagePath}" class="card-img-top" alt="${project.title}">
-                    <div class="card-body px-lg-5 px-4 blue-v-gradient">
+                <div class="card border-box my-2 ${project.type} col-12 col-md-6 col-lg-4" id="${project.id}">
+                    <img src="http://costionline.com${project.imagePath}" class="card-img-top" alt="${project.title}">
+                    <div class="card-body px-lg-1 px-4">
                         <h5 class="card-title fw-bold fs-4">${project.title} ${badge}</h5>
                         <p class="text-secondary">${project.subtitle}</p>
                         <p class="card-text fs-5">${project.description}</p>
