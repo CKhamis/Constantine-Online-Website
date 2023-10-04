@@ -21,4 +21,9 @@ public class FrontEndController {
     public String getNewAccount() {
         return "Tree";
     }
+
+    @RequestMapping("/")
+    public String getHome() {
+        return "Home";
+    }
 }
