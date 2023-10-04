@@ -40,15 +40,18 @@
             }
 
             let cardContent = `
-                <div class="card border-box my-2 ${project.type} col-12 col-md-6 col-lg-4" id="${project.id}">
-                    <img src="http://costionline.com${project.imagePath}" class="card-img-top" alt="${project.title}">
-                    <div class="card-body px-lg-1 px-4">
-                        <h5 class="card-title fw-bold fs-4">${project.title} ${badge}</h5>
-                        <p class="text-secondary">${project.subtitle}</p>
-                        <p class="card-text fs-5">${project.description}</p>
-                        ${links}
+                <div class="my-2 col-12 col-md-6 col-lg-4 px-2">
+                    <div class="card border-box ${project.type} " id="${project.id}">
+                        <img src="https://costionline.com${project.imagePath}" class="card-img-top" alt="${project.title}">
+                        <div class="card-body mx-md-1 mx-4">
+                            <h5 class="card-title fw-bold fs-4">${project.title} ${badge}</h5>
+                            <p class="text-secondary">${project.subtitle}</p>
+                            <p class="card-text fs-5">${project.description}</p>
+                            ${links}
+                        </div>
                     </div>
                 </div>
+
             `;
 
             if(currentEra !== project.era){
