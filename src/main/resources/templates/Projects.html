@@ -4,7 +4,7 @@
 <body class="bg-1 text-1">
 <div th:replace="Components :: main-navigation"></div>
 <main class="container-fluid">
-    <div class="row" id="main-content">
+    <div id="main-content" class="px-2">
         <noscript>
             <h2 class="text-center">JavaScript is required to view this page</h2>
         </noscript>
@@ -41,7 +41,7 @@
             let cardContent = `
             <div class="my-2 col-12 col-md-6 col-lg-4 px-2">
                 <div class="card border-box ${project.type} " id="${project.id}">
-                    <img src="https://costionline.com${project.imagePath}" class="card-img-top" alt="${project.title}">
+                    <img src="https://costionline.com${project.imagePath}" class="card-img-top" alt="${project.title}" style="aspect-ratio: 16 / 9; object-fit: cover">
                     <div class="card-body mx-md-1 mx-4">
                         <h5 class="card-title fw-bold fs-4">${project.title} ${badge}</h5>
                         <p class="text-secondary">${project.subtitle}</p>
