@@ -12,9 +12,6 @@
 </main>
 <div th:replace="Components :: JS"></div>
 <script>
-    // Select parent element
-    const container = $("#main-content");
-
     //fetch functions
     fetch("https://costionline.com/api/Projects/all")
         .then(checkStatus)
@@ -75,9 +72,8 @@
         if (currentEra !== '') {
             insertHTML += '</div>';
         }
-        console.log(insertHTML);
         // Insert the HTML into the container
-        container.innerHTML = insertHTML;
+        document.querySelector("#main-content").innerHTML = insertHTML;
     }
 
 </script>
