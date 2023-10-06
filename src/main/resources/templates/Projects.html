@@ -18,7 +18,7 @@
     }
 </style>
 <div class="container-fluid mb-3" id="project-banner">
-<div class="container-fluid p-5">
+<div class="container-fluid py-5">
     <h1 class="text-center fw-bold p-5" style="font-size: 4rem">Project History</h1>
 </div>
 </div>
@@ -26,7 +26,7 @@
     <noscript>
         <h2 class="text-center">JavaScript is required to view this page</h2>
     </noscript>
-    <div class="container mb-3">
+    <div class="container mb-4">
         <p class="fs-4">Welcome to the Projects page of this website. Here, you'll discover my projects organized into distinct "eras." Each era groups together projects that share common themes and intentions. These eras include the Interdimensional era, Pseudo-Industrial era, High School era, and Childhood era. Beyond high school, the era names become more abstract, adding an extra layer of intrigue to the categorization.</p>
     </div>
     <div id="main-content" class="px-2"></div>
@@ -81,7 +81,7 @@
                 // Start a new era section
                 insertHTML += `
                 <div class="row">
-                    <h3 id="${project.era}" class="fs-3 text-center fw-bold col-12">${project.era.toUpperCase()} ERA</h3>
+                    <h3 id="${project.era}" class="fs-3 text-center fw-bold col-12 mt-3">${project.era.toUpperCase()} ERA</h3>
             `;
                 currentEra = project.era;
             }
