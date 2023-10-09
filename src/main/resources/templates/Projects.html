@@ -3,18 +3,72 @@
 <head th:replace="Components :: head('Home')"></head>
 <body class="bg-1 text-1">
 <div th:replace="Components :: main-navigation"></div>
-<main class="container-fluid">
-    <div class="row" id="main-content">
-        <noscript>
-            <h2 class="text-center">JavaScript is required to view this page</h2>
-        </noscript>
+<style>
+    #project-banner{
+        background-image: url("images/Project Banner.svg");
+        background-position: center center;
+        background-size: cover;
+        background-repeat: no-repeat;
+    }
+    #project-banner > div{
+        background-image: linear-gradient(to right, transparent, #ea9431, transparent);
+        background-size: 100% 3px;
+        background-position: bottom;
+        background-repeat: no-repeat;
+    }
+</style>
+<div class="container-fluid mb-5" id="project-banner">
+    <div class="container-fluid py-5">
+        <h1 class="text-center fw-bold p-5" style="font-size: 4rem">Project History</h1>
     </div>
+</div>
+<main class="container-fluid">
+    <noscript>
+        <h2 class="text-center">JavaScript is required to view this page</h2>
+    </noscript>
+    <div class="container my-4">
+        <p align="center">
+            <img src="https://skillicons.dev/icons?i=bootstrap" style="margin:4px;" />
+            <img src="https://skillicons.dev/icons?i=cpp" style="margin:4px;" />
+            <img src="https://skillicons.dev/icons?i=d3" style="margin:4px;" />
+            <img src="https://skillicons.dev/icons?i=docker" style="margin:4px;" />
+            <img src="https://skillicons.dev/icons?i=fastapi" style="margin:4px;" />
+            <img src="https://skillicons.dev/icons?i=git" style="margin:4px;" />
+            <img src="https://skillicons.dev/icons?i=gradle" style="margin:4px;" />
+            <img src="https://skillicons.dev/icons?i=html" style="margin:4px;" />
+            <img src="https://skillicons.dev/icons?i=ai" style="margin:4px;" />
+            <img src="https://skillicons.dev/icons?i=java" style="margin:4px;" />
+            <img src="https://skillicons.dev/icons?i=js" style="margin:4px;" />
+            <img src="https://skillicons.dev/icons?i=jquery" style="margin:4px;" />
+            <img src="https://skillicons.dev/icons?i=mysql" style="margin:4px;" />
+            <img src="https://skillicons.dev/icons?i=postgres" style="margin:4px;" />
+            <img src="https://skillicons.dev/icons?i=py" style="margin:4px;" />
+            <img src="https://skillicons.dev/icons?i=react" style="margin:4px;" />
+            <img src="https://skillicons.dev/icons?i=redis" style="margin:4px;" />
+            <img src="https://skillicons.dev/icons?i=rust" style="margin:4px;" />
+            <img src="https://skillicons.dev/icons?i=sass" style="margin:4px;" />
+            <img src="https://skillicons.dev/icons?i=spring" style="margin:4px;" />
+            <img src="https://skillicons.dev/icons?i=tensorflow" style="margin:4px;" />
+            <img src="https://skillicons.dev/icons?i=ts" style="margin:4px;" />
+            <img src="https://skillicons.dev/icons?i=wordpress" style="margin:4px;" />
+            <img src="https://skillicons.dev/icons?i=xd" style="margin:4px;" />
+        </p>
+
+        <p class="fs-4">
+            Welcome to the Projects page of this website. Here, you'll explore my projects organized into distinct "eras." Each era brings together projects that share common themes and intentions. These eras include the Interdimensional era, Pseudo-Industrial era, High School era, and Childhood era. As we move beyond high school, the era names take on more abstract forms, adding an extra layer of intrigue to the categorization.
+        </p>
+        <p class="fs-4">
+            My primary focus in coding has predominantly shifted towards the development of full-stack web-based applications. Over the years, I've become well-versed in using Java Spring and Java Hibernate for many of my most recent projects. Additionally, I've also been delving into new frameworks and libraries such as Python Fast and React.
+        </p>
+        <p class="fs-4">
+            Please note that some of the repositories associated with these projects may be unavailable due to their status as school projects or containing personal information.
+        </p>
+    </div>
+    <div id="main-content" class="px-2"></div>
 </main>
+<div th:replace="Components :: footer"></div>
 <div th:replace="Components :: JS"></div>
 <script>
-    // Select parent element
-    const container = $("#main-content");
-
     //fetch functions
     fetch("https://costionline.com/api/Projects/all")
         .then(checkStatus)
@@ -24,7 +78,7 @@
             displayProjects(data)
         })
         .catch(error => {
-            // error handling
+            // error handlingss="cont
             container.append($("<h3 class=\"text-center\">There was an error receiving data from Costi Online Services</h3><p class=\"text-center\">Please check the console for further information</p>"));
             console.error('Error retrieving data:', error);
         });
@@ -44,8 +98,8 @@
             let cardContent = `
             <div class="my-2 col-12 col-md-6 col-lg-4 px-2">
                 <div class="card border-box ${project.type} " id="${project.id}">
-                    <img src="https://costionline.com${project.imagePath}" class="card-img-top" alt="${project.title}">
-                    <div class="card-body mx-md-1 mx-4">
+                    <img src="https://costionline.com${project.imagePath}" class="card-img-top" alt="${project.title}" style="aspect-ratio: 16 / 9; object-fit: cover">
+                    <div class="card-body mx-md-1 mx-2">
                         <h5 class="card-title fw-bold fs-4">${project.title} ${badge}</h5>
                         <p class="text-secondary">${project.subtitle}</p>
                         <p class="card-text fs-5">${project.description}</p>
@@ -63,7 +117,7 @@
                 // Start a new era section
                 insertHTML += `
                 <div class="row">
-                    <h3 id="${project.era}" class="fs-3 text-center fw-bold col-12">${project.era.toUpperCase()} ERA</h3>
+                    <h3 id="${project.era}" class="fs-3 text-center fw-bold col-12 mt-3">${project.era.toUpperCase()} ERA</h3>
             `;
                 currentEra = project.era;
             }
@@ -75,9 +129,8 @@
         if (currentEra !== '') {
             insertHTML += '</div>';
         }
-        console.log(insertHTML);
         // Insert the HTML into the container
-        container.innerHTML = insertHTML;
+        document.querySelector("#main-content").innerHTML = insertHTML;
     }
 
 </script>
