@@ -30,15 +30,15 @@
 
     <a href="/" class="class mt-3 d-block"><button type="button" class="btn btn-primary btn-lg w-100">Proceed to home page</button></a>
 
-    <div class="row mt-3" id="quick-links">
-        <div class="col h-100 text-center" data-bs-toggle="modal" data-bs-target="#OSModal">
+    <div class="row mt-3 px-2" id="quick-links">
+        <div class="col-3 h-100 text-center p-1" data-bs-toggle="modal" data-bs-target="#OSModal">
             <div class="border-box h-100 p-2">
                 <img th:src="@{icons/Contact.svg}" alt="Contact icon" style="aspect-ratio: 1 / 1; object-fit: cover;width:100%">
                 <p class="m-0 pt-1 fw-bold text-1">Contact</p>
             </div>
         </div>
 
-        <div class="col h-100 text-center">
+        <div class="col-3 h-100 text-center p-1">
             <a href="mailto:constantine@constantinekhamis.com" class="h-100">
                 <div class="border-box h-100 p-2">
                     <img th:src="@{icons/Email.svg}" alt="Email icon" style="aspect-ratio: 1 / 1; object-fit: cover;width:100%">
@@ -47,11 +47,20 @@
             </a>
         </div>
 
-        <div class="col h-100 text-center">
+        <div class="col-3 h-100 text-center p-1">
             <a href="tel:+14084606391" class="h-100">
                 <div class="border-box h-100 p-2">
                     <img th:src="@{icons/Call.svg}" alt="Call icon" style="aspect-ratio: 1 / 1; object-fit: cover;width:100%">
                     <p class="m-0 pt-1 fw-bold text-1">Call</p>
+                </div>
+            </a>
+        </div>
+
+        <div class="col-3 h-100 text-center p-1">
+            <a href="/Downloads/Resume - Oct 9 2023.docx" class="h-100">
+                <div class="border-box h-100 p-2">
+                    <img th:src="@{icons/Resume.svg}" alt="Resume" style="aspect-ratio: 1 / 1; object-fit: cover;width:100%">
+                    <p class="m-0 pt-1 fw-bold text-1">Resume</p>
                 </div>
             </a>
         </div>
@@ -126,6 +135,7 @@
         $(quickLinks[0]).css("opacity", "0");
         $(quickLinks[1]).css("opacity", "0");
         $(quickLinks[2]).css("opacity", "0");
+        $(quickLinks[3]).css("opacity", "0");
 
         $(name).css({"marginLeft": "-50px", "opacity": "0"});
         $(subtitle).css({"marginLeft": "-50px", "opacity": "0"});
@@ -144,6 +154,7 @@
         $(quickLinks[0]).delay(900).animate({opacity: '1'}, {duration:500});
         $(quickLinks[1]).delay(1000).animate({opacity: '1'}, {duration:500});
         $(quickLinks[2]).delay(1100).animate({opacity: '1'}, {duration:500});
+        $(quickLinks[3]).delay(1200).animate({opacity: '1'}, {duration:500});
     });
 </script>
 </body>
