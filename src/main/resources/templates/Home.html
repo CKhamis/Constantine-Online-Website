@@ -24,8 +24,10 @@
         </div>
     </div>
 
-    <div class="container" id="projects">
-
+    <div class="container mt-3" id="projects">
+        <h3 class="fw-bold border-bottom">Recent Projects</h3>
+        <div class="row" id="project-analytics-container"></div>
+        <div class="row" id="project-container"></div>
     </div>
 
     <div class="container mt-3">
@@ -148,11 +150,27 @@
         });
 
     function renderPostAnalytics(data){
-        console.log(data);
+        let htmlContent = ``;
+
+        htmlContent += `<div class='col'><p class='text-secondary'>Total Projects: ${data.totalProjects}</p></div>`;
+        htmlContent += `<div class='col'><p class='text-secondary'>Active: ${data.active}</p></div>`;
+        htmlContent += `<div class='col'><p class='text-secondary'>Open Repos: ${data.repos}</p></div>`;
+        htmlContent += `<div class='col'><p class='text-secondary'>Total Projects: ${data.totalProjects}</p></div>`;
+
+        document.querySelector("#project-analytics-container").innerHTML = htmlContent;
     }
 
     function renderProjects(data){
-        console.log(data);
+        let htmlContent = ``;
+
+        for(let i = 0; i < 3; i++){
+            htmlContent += `
+                <div class="col">
+                    <p>${data[i].title}</p>
+                </div>`;
+        }
+
+        document.querySelector("#project-container").innerHTML = htmlContent;
     }
 </script>
 </body>
