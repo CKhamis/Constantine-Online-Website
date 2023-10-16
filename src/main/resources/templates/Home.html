@@ -4,20 +4,21 @@
 <body class="bg-1 text-1">
 <div th:replace="Components :: main-navigation"></div>
 <style>
-    h1{
 
-    }
 </style>
 <main class="container-fluid px-4 py-5">
-    <div class="container">
-        <div class="row">
-            <div class="col-12 col-md-4">
-                <img th:src="@{images/Headshot.webp}" class="rounded-3" alt="Constantine Khamis" style="aspect-ratio: 1 / 1; object-fit: cover;float:left; width: 100%;">
+    <div class="container col-xxl-8 px-4">
+        <div class="row flex-lg-row-reverse align-items-center g-5">
+            <div class="col-10 col-sm-8 col-lg-6">
+                <img src="/images/Headshot.webp" class="d-block mx-lg-auto img-fluid" alt="Bootstrap Themes" loading="lazy">
             </div>
-            <div class="col-12 col-md-8 p-md-1 p-lg-5">
-                <div class="p-md-1 p-lg-5 mt-3 mt-md-0">
-                    <p class="text-secondary mb-0 fs-4 ">About</p>
-                    <h1 style="font-size: 3rem" class="fw-bold">Constantine Khamis</h1>
+            <div class="col-lg-6">
+                <h1 class="display-5 fw-bold lh-1 mb-3">Hi! I am Constantine Khamis</h1>
+                <p class="lead">As a dedicated computer science student at SJSU, set to graduate in Spring 2024, my career has been driven by a strong foundation in cybersecurity from my last two internships. I have transitioned my coding projects towards the development of full-stack web-based applications. I am well-versed in using various technologies like Java Spring, Hibernate, and Bootstrap for my recent projects, while also continually exploring new frameworks and libraries to create innovative solutions.</p>
+                <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+                    <a href="/Downloads/Resume.docx"><button type="button" class="btn btn-primary btn-lg px-4 me-md-2">Download Resume</button></a>
+                    <a href="#contact"><button type="button" class="btn btn-outline-secondary btn-lg px-4">Contact</button></a>
+                    <a href="#projects"><button type="button" class="btn btn-outline-secondary btn-lg px-4">Next</button></a>
                 </div>
             </div>
         </div>
