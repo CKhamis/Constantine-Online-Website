@@ -11,6 +11,10 @@
         background-attachment: fixed;
         background-repeat: no-repeat;
     }
+
+    .skill{
+        background-color:rgba(255,255, 255,.1);
+    }
 </style>
 <main class="container-fluid px-md-4 px-2 py-5">
     <div class="container col-xxl-8 px-4">
@@ -22,15 +26,14 @@
                 <h1 class="display-5 fw-bold lh-1 mb-3">Hi! I am Constantine Khamis</h1>
                 <p class="lead">As a dedicated computer science student at SJSU, set to graduate in Spring 2024, my career has been driven by a strong foundation in cybersecurity from my last two internships. I have transitioned my coding projects towards the development of full-stack web-based applications. I am well-versed in using various technologies like Java Spring, Hibernate, and Bootstrap for my recent projects, while also continually exploring new frameworks and libraries to create innovative solutions.</p>
                 <div class="d-grid gap-2 d-md-flex justify-content-md-start">
-                    <a href="/Downloads/Resume.docx"><button type="button" class="btn btn-primary btn-lg px-4">Download Resume</button></a>
+                    <a href="/Downloads/Resume - Oct 9 2023.docx"><button type="button" class="btn btn-primary btn-lg px-4">Download Resume</button></a>
                     <a href="#contact"><button type="button" class="btn btn-secondary btn-lg px-4">Contact</button></a>
-                    <a href="#projects"><button type="button" class="btn btn-secondary btn-lg px-4">Next</button></a>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="container mt-3 px-md-4 px-2" id="education">
+    <div class="container mt-5 px-md-4 px-2" id="education">
         <h2 class="fw-bold border-bottom">Education</h2>
         <div class="container-fluid p-0 gradient">
             <div class="container-fluid">
@@ -75,12 +78,22 @@
         </div>
     </div>
 
-    <div class="container mt-3 px-md-4 px-2" id="projects">
+    <div class="container mt-5 px-md-4 px-2" id="projects">
         <h2 class="fw-bold border-bottom">Recent Projects</h2>
         <div class="row" id="project-analytics-container"></div>
-        <div class="row" id="project-container"></div>
-        <p class="fs-4 mt-3">Throughout my journey in software development, I've continuously strived to expand my skill set and knowledge base, always eager to explore new frameworks and technologies. From creating personalized diary and journaling programs to crafting resume websites and more, my work reflects a diverse range of projects. View the above projects and more in the projects section.</p>
+        <a href="/Projects"><div class="row" id="project-container"></div></a>
+        <p class="fs-4 mt-3">Throughout my journey in software development, I've always been passionate about exploring new frameworks, libraries, and technologies to create exciting personal and school projects. From creating personalized diary and journaling programs to crafting resume websites and more, my work reflects a diverse range of projects. View the above projects and more in the projects section.</p>
         <a href="/Projects"><button type="button" class="btn btn-primary btn-lg px-4">Projects</button></a>
+    </div>
+
+    <div class="container mt-5 px-md-4 px-2" id="skills">
+        <h2 class="fw-bold border-bottom">Skills</h2>
+        <h3 class="fw-bold">Languages</h3>
+        <div class="row row-cols-3 row-cols-sm-4 row-cols-lg-6 row-cols-xl-8 list-unstyled list" id="lang-container"></div>
+        <h3 class="fw-bold">Libraries & Frameworks</h3>
+        <div class="row row-cols-3 row-cols-sm-4 row-cols-lg-6 row-cols-xl-8 list-unstyled list" id="lib-container"></div>
+        <h3 class="fw-bold">Tools</h3>
+        <div class="row row-cols-3 row-cols-sm-4 row-cols-lg-6 row-cols-xl-8 list-unstyled list" id="tool-container"></div>
     </div>
 
     <div class="container mt-3">
@@ -168,7 +181,32 @@
 <div th:replace="Components :: footer"></div>
 <script>
     let container = document.querySelector("#projects");
-
+    let skills = [
+        {"category": "lib", "name": "Bootstrap", "content": `<img src="https://skillicons.dev/icons?i=bootstrap" style="margin:4px;" />`},
+        {"category": "lang", "name": "C++", "content": `<img src="https://skillicons.dev/icons?i=cpp" style="margin:4px;" />`},
+        {"category": "lib", "name": "D3.js", "content": `<img src="https://skillicons.dev/icons?i=d3" style="margin:4px;" />`},
+        {"category": "tool", "name": "Docker", "content": `<img src="https://skillicons.dev/icons?i=docker" style="margin:4px;" />`},
+        {"category": "lib", "name": "Fast API", "content": `<img src="https://skillicons.dev/icons?i=fastapi" style="margin:4px;" />`},
+        {"category": "tool", "name": "Git", "content": `<img src="https://skillicons.dev/icons?i=git" style="margin:4px;" />`},
+        {"category": "tool", "name": "Gradle", "content": `<img src="https://skillicons.dev/icons?i=gradle" style="margin:4px;" />`},
+        {"category": "lang", "name": "HTML", "content": `<img src="https://skillicons.dev/icons?i=html" style="margin:4px;" />`},
+        {"category": "tool", "name": "Illustrator", "content": `<img src="https://skillicons.dev/icons?i=ai" style="margin:4px;" />`},
+        {"category": "lang", "name": "Java", "content": `<img src="https://skillicons.dev/icons?i=java" style="margin:4px;" />`},
+        {"category": "lang", "name": "JavaScript", "content": `<img src="https://skillicons.dev/icons?i=js" style="margin:4px;" />`},
+        {"category": "lib", "name": "jQuery", "content": `<img src="https://skillicons.dev/icons?i=jquery" style="margin:4px;" />`},
+        {"category": "lang", "name": "MySql", "content": `<img src="https://skillicons.dev/icons?i=mysql" style="margin:4px;" />`},
+        {"category": "lang", "name": "Postgres", "content": `<img src="https://skillicons.dev/icons?i=postgres" style="margin:4px;" />`},
+        {"category": "lang", "name": "Python", "content": `<img src="https://skillicons.dev/icons?i=py" style="margin:4px;" />`},
+        {"category": "lib", "name": "React", "content": `<img src="https://skillicons.dev/icons?i=react" style="margin:4px;" />`},
+        {"category": "lang", "name": "Redis", "content": `<img src="https://skillicons.dev/icons?i=redis" style="margin:4px;" />`},
+        {"category": "lang", "name": "Rust", "content": `<img src="https://skillicons.dev/icons?i=rust" style="margin:4px;" />`},
+        {"category": "lang", "name": "Sass", "content": `<img src="https://skillicons.dev/icons?i=sass" style="margin:4px;" />`},
+        {"category": "lib", "name": "Java Spring", "content": `<img src="https://skillicons.dev/icons?i=spring" style="margin:4px;" />`},
+        {"category": "lib", "name": "Tensorflow", "content": `<img src="https://skillicons.dev/icons?i=tensorflow" style="margin:4px;" />`},
+        {"category": "lang", "name": "TypeScript", "content": `<img src="https://skillicons.dev/icons?i=ts" style="margin:4px;" />`},
+        {"category": "lang", "name": "Wordpress", "content": `<img src="https://skillicons.dev/icons?i=wordpress" style="margin:4px;" />`},
+        {"category": "tool", "name": "Xd", "content": `<img src="https://skillicons.dev/icons?i=xd" style="margin:4px;" />`}
+    ];
 
     const analyticsFetch = fetch("https://costionline.com/api/Projects/analytics");
     const projectsFetch = fetch("https://costionline.com/api/Projects/all");
@@ -205,10 +243,10 @@
     function renderPostAnalytics(data){
         let htmlContent = ``;
 
-        htmlContent += `<div class='col-2 col-md-4 col-lg-3'><p class='text-secondary text-center'>Total Projects: ${data.totalProjects}</p></div>`;
-        htmlContent += `<div class='col-2 col-md-4 col-lg-3'><p class='text-secondary text-center'>Active: ${data.active}</p></div>`;
-        htmlContent += `<div class='col-2 col-md-4 col-lg-3'><p class='text-secondary text-center'>Open Repos: ${data.repos}</p></div>`;
-        htmlContent += `<div class='col-2 col-md-4 col-lg-3'><p class='text-secondary text-center'>Total Projects: ${data.totalProjects}</p></div>`;
+        htmlContent += `<div class='col-6 col-md-4 col-lg-3'><p class='text-secondary text-center'>Total Projects: ${data.totalProjects}</p></div>`;
+        htmlContent += `<div class='col-6 col-md-4 col-lg-3'><p class='text-secondary text-center'>Active: ${data.active}</p></div>`;
+        htmlContent += `<div class='col-6 col-md-4 col-lg-3'><p class='text-secondary text-center'>Open Repos: ${data.repos}</p></div>`;
+        htmlContent += `<div class='col-6 col-md-4 col-lg-3'><p class='text-secondary text-center'>Total Projects: ${data.totalProjects}</p></div>`;
 
         document.querySelector("#project-analytics-container").innerHTML = htmlContent;
     }
@@ -225,6 +263,36 @@
         }
 
         document.querySelector("#project-container").innerHTML = htmlContent;
+    }
+
+    renderSkills();
+    function renderSkills(){
+        let langContent = ``;
+        let toolContent = ``;
+        let libContent = ``;
+
+        for(let i = 0; i < skills.length; i++){
+            let content = `
+            <li class="col mb-4">
+                <div class="px-3 py-4 mb-2 bg-body-secondary text-center rounded-3 skill">
+                    ${skills[i].content}
+                </div>
+                <div class="name text-decoration-none text-center pt-1">${skills[i].name}</div>
+            </li>
+            `;
+
+            if(skills[i].category == "lib"){
+                libContent += content;
+            }else if(skills[i].category == "tool"){
+                toolContent += content;
+            }else if(skills[i].category == "lang"){
+                langContent += content;
+            }
+        }
+
+        document.querySelector("#lang-container").innerHTML = langContent;
+        document.querySelector("#lib-container").innerHTML = libContent;
+        document.querySelector("#tool-container").innerHTML = toolContent;
     }
 </script>
 </body>
