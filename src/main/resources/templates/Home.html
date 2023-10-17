@@ -24,11 +24,54 @@
         </div>
     </div>
 
+    <div class="container mt-3 px-md-4 px-2" id="education">
+        <h3 class="fw-bold border-bottom">Education</h3>
+        <div class="container-fluid p-0 gradient">
+            <div class="container-fluid">
+                <div class="container py-5">
+                    <div class="row">
+                        <div class="col-lg-6 col-md-8 col-xs-12">
+                            <h2 class="fw-bold">Education</h2>
+                            <p class="text-secondary">Graduating in Spring 2024</p>
+                            <p class="fs-4">I am currently computer science student at San Jose State University. I am working on completing my upper division classes and finishing my bachelor's degree.</p>
+                            <h5 class="fw-bold">Class Highlights</h5>
+                            <div class="row">
+                                <div class="col-lg-4 col-sm-6 col-xs-6">
+                                    <p>Server Programming</p>
+                                </div>
+                                <div class="col-lg-4 col-sm-6 col-xs-6">
+                                    <p>Operating Systems</p>
+                                </div>
+                                <div class="col-lg-4 col-sm-6 col-xs-6">
+                                    <p>CPU Architecture</p>
+                                </div>
+                                <div class="col-lg-4 col-sm-6 col-xs-6">
+                                    <p>OO Programming</p>
+                                </div>
+                                <div class="col-lg-4 col-sm-6 col-xs-6">
+                                    <p>Advanced Python</p>
+                                </div>
+                                <div class="col-lg-4 col-sm-6 col-xs-6">
+                                    <p>Programming Paradigms</p>
+                                </div>
+                                <div class="col-lg-4 col-sm-6 col-xs-6">
+                                    <p>Data &amp; Algorithms</p>
+                                </div>
+                            </div>
+                            <img src="images/games/axcel/toys/Terence Plush.png" class="sprite" style="height:40px;" data-sprite-name="terence">
+                            <a href="https://github.com/CKhamis" class="btn btn-info" aria-current="page">See Github page</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="container mt-3 px-md-4 px-2" id="projects">
         <h3 class="fw-bold border-bottom">Recent Projects</h3>
         <div class="row" id="project-analytics-container"></div>
         <div class="row" id="project-container"></div>
-        <p>Throughout my journey in software development, I've continuously strived to expand my skill set and knowledge base, always eager to explore new frameworks and technologies. From creating personalized diary and journaling programs to crafting resume websites and more, my work reflects a diverse range of projects. View the above projects and more in the projects section.</p>
+        <p class="fs-4 mt-3">Throughout my journey in software development, I've continuously strived to expand my skill set and knowledge base, always eager to explore new frameworks and technologies. From creating personalized diary and journaling programs to crafting resume websites and more, my work reflects a diverse range of projects. View the above projects and more in the projects section.</p>
         <a href="/Projects"><button type="button" class="btn btn-primary btn-lg px-4">Projects</button></a>
     </div>
 
@@ -154,10 +197,10 @@
     function renderPostAnalytics(data){
         let htmlContent = ``;
 
-        htmlContent += `<div class='col-2 col-md-4 col-lg-3'><p class='text-secondary'>Total Projects: ${data.totalProjects}</p></div>`;
-        htmlContent += `<div class='col-2 col-md-4 col-lg-3'><p class='text-secondary'>Active: ${data.active}</p></div>`;
-        htmlContent += `<div class='col-2 col-md-4 col-lg-3'><p class='text-secondary'>Open Repos: ${data.repos}</p></div>`;
-        htmlContent += `<div class='col-2 col-md-4 col-lg-3'><p class='text-secondary'>Total Projects: ${data.totalProjects}</p></div>`;
+        htmlContent += `<div class='col-2 col-md-4 col-lg-3'><p class='text-secondary text-center'>Total Projects: ${data.totalProjects}</p></div>`;
+        htmlContent += `<div class='col-2 col-md-4 col-lg-3'><p class='text-secondary text-center'>Active: ${data.active}</p></div>`;
+        htmlContent += `<div class='col-2 col-md-4 col-lg-3'><p class='text-secondary text-center'>Open Repos: ${data.repos}</p></div>`;
+        htmlContent += `<div class='col-2 col-md-4 col-lg-3'><p class='text-secondary text-center'>Total Projects: ${data.totalProjects}</p></div>`;
 
         document.querySelector("#project-analytics-container").innerHTML = htmlContent;
     }
@@ -167,9 +210,9 @@
 
         for(let i = 0; i < 3; i++){
             htmlContent += `
-                <div class="col-12 col-md-6 col-lg-4">
-                    <h4 class="fw-bold text-center">${data[i].title}</h4>
-                    <img src="https://costionline.com${data[i].imagePath}" class="img-fluid d-block" loading="lazy" style="aspect-ratio: 16 / 9; object-fit: cover; width: 100%;" />
+                <div class="col-12 col-md-6 col-lg-4 mt-3">
+                    <h5 class="fw-bold text-center">${data[i].title}</h5>
+                    <img src="https://costionline.com${data[i].imagePath}" class="img-fluid d-block rounded-3" loading="lazy" style="aspect-ratio: 16 / 9; object-fit: cover; width: 100%;" />
                 </div>`;
         }
 
