@@ -11,6 +11,14 @@
         background-attachment: fixed;
         background-repeat: no-repeat;
     }
+    
+    .job-image{
+        min-height:200px;
+        background-position: left;
+        background-size: cover;
+        background-attachment: fixed;
+        background-repeat: no-repeat;
+    }
 
     .skill{
         background-color:rgba(255,255, 255,.1);
@@ -26,7 +34,7 @@
                 <h1 class="display-5 fw-bold lh-1 mb-3">Hi! I am Constantine Khamis</h1>
                 <p class="lead">As a dedicated computer science student at SJSU, set to graduate in Spring 2024, my career has been driven by a strong foundation in cybersecurity from my last two internships. I have transitioned my coding projects towards the development of full-stack web-based applications. I am well-versed in using various technologies like Java Spring, Hibernate, and Bootstrap for my recent projects, while also continually exploring new frameworks and libraries to create innovative solutions.</p>
                 <div class="d-grid gap-2 d-md-flex justify-content-md-start">
-                    <a href="/Downloads/Resume - Oct 9 2023.docx"><button type="button" class="btn btn-primary btn-lg px-4">Download Resume</button></a>
+                    <a href="/Downloads/Resume.docx"><button type="button" class="btn btn-primary btn-lg px-4">Download Resume</button></a>
                     <a href="#contact"><button type="button" class="btn btn-secondary btn-lg px-4">Contact</button></a>
                 </div>
             </div>
@@ -96,85 +104,47 @@
         <div class="row row-cols-3 row-cols-sm-4 row-cols-lg-6 row-cols-xl-8 list-unstyled list" id="tool-container"></div>
     </div>
 
-    <div class="container mt-3">
-        <div class="row">
-            <div class="col">
-                <img th:src="@{images/games/axcel/toys/Bear.png}" class="position-relative mx-auto" style="height: 70px; top:0px;left:50%;transform:translate(-50%, 0%);"/>
-            </div>
-            <div class="col">
-                <img th:src="@{images/games/axcel/toys/Bone.png}" class="position-relative mx-auto" style="height: 70px; top:0px;left:50%;transform:translate(-50%, 0%);"/>
-            </div>
-            <div class="col">
-                <img th:src="@{images/games/axcel/toys/Chuck Plush.png}" class="position-relative mx-auto" style="height: 70px; top:0px;left:50%;transform:translate(-50%, 0%);"/>
-            </div>
-            <div class="col">
-                <img th:src="@{images/games/axcel/toys/Garbage.png}" class="position-relative mx-auto" style="height: 70px; top:0px;left:50%;transform:translate(-50%, 0%);"/>
-            </div>
-            <div class="col">
-                <img th:src="@{images/games/axcel/toys/Jimmy Plush.png}" class="position-relative mx-auto" style="height: 70px; top:0px;left:50%;transform:translate(-50%, 0%);"/>
-            </div>
-            <div class="col">
-                <img th:src="@{images/games/axcel/toys/Leash.png}" class="position-relative mx-auto" style="height: 70px; top:0px;left:50%;transform:translate(-50%, 0%);"/>
-            </div>
-            <div class="col">
-                <img th:src="@{images/games/axcel/toys/Terence Plush.png}" class="position-relative mx-auto" style="height: 70px; top:0px;left:50%;transform:translate(-50%, 0%);"/>
-            </div>
+    <div class="container mt-5 px-md-4 px-2" id="jobs">
+        <h2 class="fw-bold border-bottom">Job History</h2>
 
+        <div class="row mx-0 mb-4">
+            <div class="col-12 col-lg-5 job-image" style="background-image: url('/images/San Jose.webp');"></div>
+            <div class="col-12 col-lg-7 px-4">
+                <h3>Internship at the City of San Jose</h3>
+                <h5 class="text-muted">February 2020 - Present</h5>
+                <p>
+                    During my time as a cybersecurity Intern at the City of San Jose, I've had the opportunity to contribute to enhancing the city's cybersecurity measures. My responsibilities included handling archived networking logs, ensuring communication with over 7,000 employees regarding enterprise IT projects, and conducting compliance checks using tools like Defender/Sentinel, Splunk, and more. I played a key role in bolstering the city's security posture in various ways such as rolling out multi factor authentication, Zero Trust Network Access, and installing VPNs. I also assisted employees through the Solwarwinds, addressing an average of 100 tickets each month. To combat phishing threats, I utilized various tools such as KnowBe4, Terranova, Armorblox, and O365 ATP. My contributions have been instrumental in fortifying the city's cybersecurity infrastructure and ensuring the safety of our digital assets.
+                </p>
+            </div>
         </div>
+
+        <div class="row mx-0 mb-4">
+            <div class="col-12 col-lg-5 job-image" style="background-image: url('/images/Home Depot.webp');"></div>
+            <div class="col-12 col-lg-7 px-4">
+                <h3>Order Picker at Home Depot</h3>
+                <h5 class="text-muted">November 2020 - May 2021</h5>
+                <p>
+                    During my time as an Order Fulfilment Associate at Home Depot, I gained valuable experience in customer service. I successfully communicated with hundreds of customers daily, ensuring their needs were met promptly and professionally. This role required me to excel under pressure and meet strict deadlines, demonstrating my ability to thrive in a fast-paced and demanding environment. I undertook the task of memorizing the locations of thousands of products throughout the store to expedite customer inquiries. My time at Home Depot allowed me to hone my customer service skills, work effectively under pressure, and become a knowledgeable resource for customers seeking products in the store.
+                </p>
+            </div>
+        </div>
+
+        <div class="row mx-0 mb-4">
+            <div class="col-12 col-lg-5 job-image" style="background-image: url('/images/ThreatMetrix.webp');"></div>
+            <div class="col-12 col-lg-7 px-4">
+                <h3>Intern at ThreatMetrix</h3>
+                <h5 class="text-muted">July 2017 - August 2017</h5>
+                <p>
+                    During my brief but valuable internship at ThreatMetrix in July and August 2017, I had the opportunity to gain hands-on experience in web development. My primary role involved modifying website projects using the JavaScript framework D3, which allowed me to enhance my coding and web development skills. Additionally, I had the privilege of overseeing interviews taking place within the company and got accumulated to the company's working environment. This internship was a great learning experience, enabling me to improve my technical skills and providing me with a broader understanding of professional work dynamics.
+                </p>
+            </div>
+        </div>
+
     </div>
 
-    <div class="container">
-        <div class="container mt-4 p-3 border-box">
-            <div class="h-100 float-start" style="margin-right: 20px;">
-                <img th:src="@{images/games/axcel/sitting.gif}" class="h-100" alt="Axcel's sprite" />
-            </div>
-            <div class="h-100 float-start">
-                <h2>Hi, my name is Axcel</h2>
-                <p style="margin-bottom: 0px">I am a high energy, affectionate, occasionally mischievous dog living in the Bay Area! I live at Costi's house and guard it very well.</p>
-            </div>
-            <br clear="all" />
-        </div>
+    <div class="container mt-5 px-md-4 px-2" id="contact">
+        <h2 class="fw-bold border-bottom">Contact</h2>
 
-        <div class="row mt-3">
-            <div class="col-xs-12 col-md-4 mt-3">
-                <div class="border-box p-3 h-100">
-                    <h3 class="fw-bold">Likes</h3>
-                    <ul>
-                        <li>-SCOOTERS</li>
-                        <li>-Visiting the dog park</li>
-                        <li>-Butt scratches</li>
-                        <li>-Knocking over my food bowl</li>
-                        <li>-Scooters</li>
-                        <li>-Ripping apart my toys and eating them</li>
-                        <li>-Shedding</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="col-xs-12 col-md-4 mt-3">
-                <div class="border-box p-3 h-100">
-                    <h3 class="fw-bold">Dislikes</h3>
-                    <ul>
-                        <li>-The game room door</li>
-                        <li>-Showers</li>
-                        <li>-Regular dog food</li>
-                        <li>-Hot weather</li>
-                        <li>-The beach (and ocean)</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="col-xs-12 col-md-4 mt-3">
-                <div class="border-box p-3 h-100">
-                    <h3 class="fw-bold">Friends</h3>
-                    <ul>
-                        <li>-Romeo</li>
-                        <li>-Rocky</li>
-                        <li>-Carmelo</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-        <p class="text-center mt-3 fs-4">Pixel art of Axcel and his toys are made by Brandon</p>
     </div>
 </main>
 <div th:replace="Components :: JS"></div>
@@ -287,7 +257,7 @@
                 libContent += content;
             }else if(skills[i].category == "tool"){
                 toolContent += content;
-            }else if(skills[i].category == "lang"){
+            }else{
                 langContent += content;
             }
         }
