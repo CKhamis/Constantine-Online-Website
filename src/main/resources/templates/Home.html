@@ -81,7 +81,7 @@
     <div class="container mt-5 px-md-4 px-2" id="projects">
         <h2 class="fw-bold border-bottom">Recent Projects</h2>
         <div class="row" id="project-analytics-container"></div>
-        <a href="/Projects"><div class="row" id="project-container"></div></a>
+        <a href="/Projects#interdimensional"><div class="row" id="project-container"></div></a>
         <p class="fs-4 mt-3">Throughout my journey in software development, I've always been passionate about exploring new frameworks, libraries, and technologies to create exciting personal and school projects. From creating personalized diary and journaling programs to crafting resume websites and more, my work reflects a diverse range of projects. View the above projects and more in the projects section.</p>
         <a href="/Projects"><button type="button" class="btn btn-primary btn-lg px-4">Projects</button></a>
     </div>
@@ -183,6 +183,8 @@
     let container = document.querySelector("#projects");
     let skills = [
         {"category": "lib", "name": "Bootstrap", "content": `<img src="https://skillicons.dev/icons?i=bootstrap" style="margin:4px;" />`},
+        {"category": "tool", "name": "Cloudflare", "content": `<img src="https://skillicons.dev/icons?i=cloudflare" style="margin:4px;" />`},
+        {"category": "lang", "name": "CSS", "content": `<img src="https://skillicons.dev/icons?i=css" style="margin:4px;" />`},
         {"category": "lang", "name": "C++", "content": `<img src="https://skillicons.dev/icons?i=cpp" style="margin:4px;" />`},
         {"category": "lib", "name": "D3.js", "content": `<img src="https://skillicons.dev/icons?i=d3" style="margin:4px;" />`},
         {"category": "tool", "name": "Docker", "content": `<img src="https://skillicons.dev/icons?i=docker" style="margin:4px;" />`},
@@ -257,7 +259,7 @@
         for(let i = 0; i < 3; i++){
             htmlContent += `
                 <div class="col-12 col-md-6 col-lg-4 mt-3">
-                    <h5 class="fw-bold text-center">${data[i].title}</h5>
+                    <h5 class="fw-bold text-center text-white">${data[i].title}</h5>
                     <img src="https://costionline.com${data[i].imagePath}" class="img-fluid d-block rounded-3" loading="lazy" style="aspect-ratio: 16 / 9; object-fit: cover; width: 100%;" />
                 </div>`;
         }
