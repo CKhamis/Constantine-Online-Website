@@ -79,7 +79,7 @@
             displayProjects(data)
         })
         .catch(error => {
-            // error handlingss="cont
+            // error handling
             container.append($("<h3 class=\"text-center\">There was an error receiving data from application server</h3><p class=\"text-center\">Please check the console for further information</p>"));
             console.error('Error retrieving data:', error);
         });
@@ -89,7 +89,7 @@
         let currentEra = '';
         let insertHTML = '';
 
-        data.forEach(project => {
+        for (const project of data) {
             const links = project.repositoryLinks.map((link, index) => `<a href="${link}" class="btn btn-primary mb-3" style="margin-right:10px;">Repository ${index + 1}</a>`).join('');
             let badge = '';
             if (!project.discontinued) {
@@ -97,34 +97,37 @@
             }
 
             let cardContent = `
-            <div class="my-2 col-12 col-md-6 col-lg-4 px-2">
-                <div class="card border-box ${project.type} " id="${project.id}">
-                    <img src="https://costionline.com${project.imagePath}" class="card-img-top" alt="${project.title}" style="aspect-ratio: 16 / 9; object-fit: cover">
-                    <div class="card-body mx-md-1 mx-2">
-                        <h5 class="card-title fw-bold fs-4">${project.title} ${badge}</h5>
-                        <p class="text-secondary">${project.subtitle}</p>
-                        <p class="card-text fs-5">${project.description}</p>
-                        ${links}
-                    </div>
+        <div class="my-2 col-12 col-md-6 col-lg-4 px-2">
+            <div class="card border-box ${project.type} " id="${project.id}">
+                <img src="https://costionline.com${project.imagePath}" class="card-img-top" alt="${project.title}" style="aspect-ratio: 16 / 9; object-fit: cover">
+                <div class="card-body mx-md-1 mx-2">
+                    <h5 class="card-title fw-bold fs-4">${project.title} ${badge}</h5>
+                    <p class="text-secondary">${project.subtitle}</p>
+                    <p class="card-text fs-5">${project.description}</p>
+                    ${links}
                 </div>
             </div>
-        `;
+        </div>
+    `;
 
             if (currentEra !== project.era) {
                 if (currentEra !== '') {
-                    // Close the previous era section if not the first one
                     insertHTML += '</div>';
+                }
+
+                if (project.era === "HIGHSCHOOL ERA") {
+                    break;
                 }
                 // Start a new era section
                 insertHTML += `
-                <div class="row">
-                    <h3 id="${project.era}" class="fs-3 text-center fw-bold col-12 mt-3">${project.era.toUpperCase()} ERA</h3>
-            `;
+            <div class="row">
+                <h3 id="${project.era}" class="fs-3 text-center fw-bold col-12 mt-3">${project.era.toUpperCase()} ERA</h3>
+        `;
                 currentEra = project.era;
             }
 
             insertHTML += cardContent;
-        });
+        }
 
         // Close the last era section if there are any
         if (currentEra !== '') {
@@ -133,6 +136,7 @@
         // Insert the HTML into the container
         document.querySelector("#main-content").innerHTML = insertHTML;
     }
+
 
 </script>
 </body>
