@@ -55,8 +55,7 @@
             <div class="row g-4 row-cols-1 row-cols-lg-4">
                 <div class="col">
                     <a href="/About#website" class="d-flex align-items-center mb-3 link-dark text-decoration-none">
-                        <img th:src="@{/icons/Constantine Logo v5.svg}" alt="Constantine Logo" class="me-2"  style="width:40px">
-                    </a>
+                        <img th:src="${webSpy} ? @{/icons/Constantine Logo v5.svg}: @{/icons/Constantine Logo Grey.svg}" alt="Constantine Logo" class="me-2"  style="width:40px">                    </a>
                     <p class="color-light">Constantine Online Website is a Spring powered website built by me</p>
                 </div>
 

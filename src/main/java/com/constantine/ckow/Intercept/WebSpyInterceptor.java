@@ -13,13 +13,17 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.HandlerInterceptor;
 import java.math.BigInteger;
 import java.util.Objects;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class WebSpyInterceptor implements HandlerInterceptor {
+    public static AtomicBoolean spying = new AtomicBoolean(false);
+
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         // Generate the request report
         RequestReport report = new RequestReport(
-                new BigInteger("14721351906103611027"),
+                new BigInteger("9651652042925625257"),
+                // todo: check if this is all correct
                 request.getRemoteAddr(),
                 request.getRemoteHost(),
                 String.valueOf(request.getRemotePort()),
@@ -48,12 +52,15 @@ public class WebSpyInterceptor implements HandlerInterceptor {
 
             if(Objects.requireNonNull(webSpyResponse.getBody()).is_blocked()){
                 response.sendError(HttpServletResponse.SC_SERVICE_UNAVAILABLE, webSpyResponse.getBody().getMessage());
+                spying.set(true);
                 return false;
             }else{
+                spying.set(true);
                 return true;
             }
         } catch (Exception e) {
             e.printStackTrace();
+            spying.set(false);
             return true;
         }
     }

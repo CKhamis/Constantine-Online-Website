@@ -7,13 +7,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.security.Principal;
 
+import static com.constantine.ckow.Intercept.WebSpyInterceptor.spying;
+
 @Controller
 public class FrontEndController {
-    private static final String VERSION = "0.0.1";
+    private static final String VERSION = "2.0.0";
 
     @ModelAttribute
     public void addCommonAttributes(Model model) {
         model.addAttribute("theme", "/Dark.css");
+        model.addAttribute("webSpy", spying.get());
     }
 
 
