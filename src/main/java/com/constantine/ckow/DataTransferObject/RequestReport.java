@@ -11,7 +11,7 @@ import java.math.BigInteger;
 @Setter
 public class RequestReport {
     // Authentication
-    BigInteger domain_id;
+    String domain_id;
 
     // Client info
     String ip;
