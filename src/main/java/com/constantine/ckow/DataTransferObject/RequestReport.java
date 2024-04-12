@@ -10,7 +10,7 @@ import java.math.BigInteger;
 @Getter
 @Setter
 public class RequestReport {
-    // Authentication
+    // Identification
     String domain_id;
 
     // Client info
@@ -31,4 +31,7 @@ public class RequestReport {
     String request_header;
     String request_protocol;
     String request_scheme;
+
+    // Browser info
+    String user_agent;
 }

@@ -11,7 +11,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.HandlerInterceptor;
-import java.math.BigInteger;
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -35,7 +34,8 @@ public class WebSpyInterceptor implements HandlerInterceptor {
                 request.getMethod(),
                 request.getHeader("Accept"),
                 request.getProtocol(),
-                request.getScheme()
+                request.getScheme(),
+                request.getHeader("User-Agent")
         );
 
         RestTemplate restTemplate = new RestTemplate();
