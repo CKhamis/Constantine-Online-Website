@@ -7,4 +7,4 @@ WORKDIR /usr/build
 COPY --from=BUILDER /home/gradle/build/install/ckow-boot .
 WORKDIR /
 EXPOSE 8080
-CMD ["./bin/ckow"]
+CMD ["/usr/build/bin/ckow"]
