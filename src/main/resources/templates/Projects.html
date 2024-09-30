@@ -62,85 +62,140 @@
         </p>
 
         <p class="fs-4">
-            Welcome to the projects page. Here, you will see a live updating list of my project experiences. My primary focus in coding has predominantly shifted towards the development of full-stack web-based applications. Over the years, I've become well-versed in using Java Spring and Java Hibernate for many of my most recent projects. Additionally, I've also been delving into new frameworks and libraries such as Python Fast and React.
+            Welcome to the projects page. Here, you will see a live updating list of my project experiences via Costi Online's project API. My primary focus in coding has predominantly shifted towards the development of full-stack web-based applications. Over the years, I've become well-versed in using Java Spring and Java Hibernate for many of my most recent projects. Additionally, I've also been delving into new frameworks and libraries such as Python Fast and React.
         </p>
         <p class="fs-4">
             Please note that some of the repositories associated with these projects may be unavailable due to their status as school projects or containing personal information.
         </p>
     </div>
-    <div id="main-content" class="px-2"></div>
+    <h3 class="text-center fw-bold mt-4 mb-3">All Projects</h3>
+    <ul class="nav nav-pills mb-3 align-items-center justify-content-center" id="pills-tab" role="tablist" style="background-color: transparent;border: none;">
+        <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="all-tab" data-bs-toggle="pill" data-bs-target="#all" type="button" role="tab" aria-controls="all" aria-selected="true">All</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="web-tab" data-bs-toggle="pill" data-bs-target="#web" type="button" role="tab" aria-controls="web" aria-selected="false">Web</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="desktop-tab" data-bs-toggle="pill" data-bs-target="#desktop" type="button" role="tab" aria-controls="desktop" aria-selected="false">Desktop</button>
+        </li>
+    </ul>
+    <div class="tab-content container" id="pills-tabContent">
+        <div class="tab-pane fade show active" id="all" role="tabpanel" aria-labelledby="all-tab" tabindex="0"><p class="text-center fw-bold">Please wait</p></div>
+        <div class="tab-pane fade" id="web" role="tabpanel" aria-labelledby="web-tab" tabindex="0"><p class="text-center fw-bold">Please wait</p></div>
+        <div class="tab-pane fade" id="desktop" role="tabpanel" aria-labelledby="desktop-tab" tabindex="0"><p class="text-center fw-bold">Please wait</p></div>
+    </div>
 </main>
 <div th:replace="Components :: footer"></div>
 <div th:replace="Components :: JS"></div>
 <script>
+    let projectList;
     //fetch functions
-    fetch("https://costionline.com/api/Projects/all")
+    fetch("https://costionline.com/api/project/all")
         .then(checkStatus)
         .then(response => response.json())
         .then(data => {
             // Process the retrieved data
-            displayProjects(data)
+            projectList = data;
+            renderProjects()
         })
         .catch(error => {
             // error handling
-            container.append($("<h3 class=\"text-center\">There was an error receiving data from application server</h3><p class=\"text-center\">Please check the console for further information</p>"));
+            document.querySelector("#pills-tabContent").innerHTML = "<h3 class=\"text-center\">There was an error receiving data from application server</h3><p class=\"text-center\">Please check the console for further information</p>";
             console.error('Error retrieving data:', error);
         });
 
     //Render
-    function displayProjects(data) {
-        let currentEra = '';
-        let insertHTML = '';
+    function renderProjects(){
+        let projectListHTML = ``;
+        let webProjectListHTML = ``;
+        let desktopProjectListHTML = ``;
 
-        for (const project of data) {
-            const links = project.repositoryLinks.map((link, index) => `<a href="${link}" class="btn btn-primary mb-3" style="margin-right:10px;">Repository ${index + 1}</a>`).join('');
-            let badge = '';
-            if (!project.discontinued) {
-                badge = `<span class="badge rounded-pill bg-success">Active</span>`;
+        // sort project list
+        projectList.sort((a, b) => new Date(b.created) - new Date(a.created));
+
+        projectList.forEach((project) => {
+
+            let logoAndTitle = `<h5 class="card-title fw-bold">${project.name}</h5>`;
+            if(project.logo.length > 0){
+                logoAndTitle = `
+                    <div class="bg-1 rounded-3" style="position: absolute; transform: translate(0%, -75%); z-index: 1;">
+                        <img src="${project.logo}" class="p-1" alt="Project Logo" style="aspect-ratio: 1 / 1; object-fit: cover; width: 90px; opacity: 1;">
+                    </div>
+                    <h5 class="card-title mt-4 fw-bold">${project.name}</h5>
+                `;
             }
 
-            let cardContent = `
-        <div class="my-2 col-12 col-md-6 col-lg-4 px-2">
-            <div class="card border-box ${project.type} " id="${project.id}">
-                <img src="https://costionline.com${project.imagePath}" class="card-img-top" alt="${project.title}" style="aspect-ratio: 16 / 9; object-fit: cover">
-                <div class="card-body mx-md-1 mx-2">
-                    <h5 class="card-title fw-bold fs-4">${project.title} ${badge}</h5>
-                    <p class="text-secondary">${project.subtitle}</p>
-                    <p class="card-text fs-5">${project.description}</p>
-                    ${links}
-                </div>
-            </div>
-        </div>
-    `;
+            let banner = '';
+            if(project.imageLinks.length > 0){
+                banner = `<img src="${project.imageLinks[0]}" class="card-img-top" alt="banner image" style="aspect-ratio: 2 / 1; object-fit: cover">`;
+            }
 
-            if (currentEra !== project.era) {
-                if (currentEra !== '') {
-                    insertHTML += '</div>';
-                }
+            let card = `
+                    <div class="col-12 col-md-4 col-lg-3 mb-4">
+                        <div class="card m-2 h-100">
+                            ${banner}
+                            <div class="card-body pb-0">
+                                ${logoAndTitle}
+                                <p class="card-text">${project.description}</p>
+                            </div>
+                            <div class="flex-shrink-0 p-3">
+                                <div class="d-flex flex-row justify-content-between align-items-end">
+                                    <div>
+                                        <p class="fw-bold mb-1">Created</p>
+                                        <p class="mb-0">${formatTimestamp(project.created)}</p>
+                                    </div>
+                                    <a href="${project.url}" class="btn btn-primary float-end">Repository</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
 
-                if (project.era === "highschool") {
-                    break;
-                }
-                // Start a new era section
-                insertHTML += `
+            projectListHTML += card;
+
+            if(project.topics.includes("website")){
+                webProjectListHTML += card;
+            }
+
+            if(project.topics.includes("desktop")){
+                desktopProjectListHTML += card;
+            }
+        });
+
+        document.querySelector("#all").innerHTML = `
             <div class="row">
-                <h3 id="${project.era}" class="fs-3 text-center fw-bold col-12 mt-3">${project.era.toUpperCase()} ERA</h3>
+                ${projectListHTML}
+            </div>
         `;
-                currentEra = project.era;
-            }
 
-            insertHTML += cardContent;
-        }
+        document.querySelector("#web").innerHTML = `
+            <div class="row">
+                ${webProjectListHTML}
+            </div>
+        `;
 
-        // Close the last era section if there are any
-        if (currentEra !== '') {
-            insertHTML += '</div>';
-        }
-        // Insert the HTML into the container
-        document.querySelector("#main-content").innerHTML = insertHTML;
+        document.querySelector("#desktop").innerHTML = `
+            <div class="row">
+                ${desktopProjectListHTML}
+            </div>
+        `;
     }
 
+    function formatTimestamp(dateString) {
+        let date = new Date(dateString);
+        let day = ("0" + date.getDate()).slice(-2);
+        let month = ("0" + (date.getMonth() + 1)).slice(-2);
+        let year = date.getFullYear().toString().substr(-2);
+        let hours = date.getHours();
+        let minutes = ("0" + date.getMinutes()).slice(-2);
+        let ampm = hours >= 12 ? 'PM' : 'AM';
 
+        hours = hours % 12;
+        hours = hours ? ("0" + hours).slice(-2) : 12;
+
+        return `${month}/${day}/${year} ${hours}:${minutes} ${ampm}`;
+    }
 </script>
 </body>
 </html>
