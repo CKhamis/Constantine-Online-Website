@@ -234,7 +234,7 @@
         // sort project list
         projectList.sort((a, b) => new Date(b.created) - new Date(a.created));
 
-        for(let i = 0; i < 4; i++)
+        for(let i = 0; i < 4; i++){
             let project = projectList[i];
             let logoAndTitle = `<h5 class="card-title fw-bold">${project.name}</h5>`;
             if(project.logo.length > 0){
