@@ -213,61 +213,83 @@
         {"category": "tool", "name": "Xd", "content": `https://skillicons.dev/icons?i=xd`}
     ];
 
-    const analyticsFetch = fetch("https://costionline.com/api/Projects/analytics");
-    const projectsFetch = fetch("https://costionline.com/api/Projects/all");
-    Promise.all([analyticsFetch, projectsFetch])
-        .then(responses => {
-            const response1 = checkStatus(responses[0]);
-            const response2 = checkStatus(responses[1]);
-
-            return Promise.all([response1, response2]);
-        })
+    let projectList;
+    //fetch functions
+    fetch("https://costionline.com/api/project/all")
+        .then(checkStatus)
+        .then(response => response.json())
         .then(data => {
-            let analyticsDownload = data[0].json();
-            let projectsDownload = data[1].json();
-
-            return Promise.all([analyticsDownload, projectsDownload]);
+            // Process the retrieved data
+            projectList = data;
+            renderProjects()
         })
-        .then(data => {
-            renderPostAnalytics(data[0]);
-            renderProjects(data[1]);
-        })
-        .catch((response)=>{
-            console.log(response);
-            response.json()  // Parse the JSON error response
-                .then(errorData => {
-                    container.innerHTML = `<img src="/icons/Logo.svg" alt="error" width="75" class="mx-auto d-block"><h3 class="text-center fw-bold">${errorData.title}</h3><p class="text-center">${errorData.message}</p>`;
-                })
-                .catch(error => {
-                    container.innerHTML = `<img src="/icons/Logo.svg" alt="error" width="75" class="mx-auto d-block"><h3 class="text-center fw-bold">There was an error receiving data from application server</h3><p class="text-center">Error message could not be parsed. ${error}</p>`;
-
-                    console.error("Error parsing error response:", error);
-                });
+        .catch(error => {
+            console.log(error);
         });
 
-    function renderPostAnalytics(data){
-        let htmlContent = ``;
+    //Render
+    function renderProjects(){
+        let projectListHTML = ``;
 
-        htmlContent += `<div class='col-6 col-md-4 col-lg-3'><p class='text-secondary text-center'>Total Projects: ${data.totalProjects}</p></div>`;
-        htmlContent += `<div class='col-6 col-md-4 col-lg-3'><p class='text-secondary text-center'>Active: ${data.active}</p></div>`;
-        htmlContent += `<div class='col-6 col-md-4 col-lg-3'><p class='text-secondary text-center'>Open Repos: ${data.repos}</p></div>`;
-        htmlContent += `<div class='col-6 col-md-4 col-lg-3'><p class='text-secondary text-center'>Total Projects: ${data.totalProjects}</p></div>`;
+        // sort project list
+        projectList.sort((a, b) => new Date(b.created) - new Date(a.created));
 
-        document.querySelector("#project-analytics-container").innerHTML = htmlContent;
-    }
+        for(let i = 0; i < 4; i++){
+            let logoAndTitle = `<h5 class="card-title fw-bold">${project.name}</h5>`;
+            if(project.logo.length > 0){
+                logoAndTitle = `
+                    <div class="bg-1 rounded-3" style="position: absolute; transform: translate(0%, -75%); z-index: 1;">
+                        <img src="${project.logo}" class="p-1" alt="Project Logo" style="aspect-ratio: 1 / 1; object-fit: cover; width: 90px; opacity: 1;">
+                    </div>
+                    <h5 class="card-title mt-4 fw-bold">${project.name}</h5>
+                `;
+            }
 
-    function renderProjects(data){
-        let htmlContent = ``;
+            let banner = '';
+            if(project.imageLinks.length > 0){
+                banner = `<img src="${project.imageLinks[0]}" class="card-img-top" alt="banner image" style="aspect-ratio: 2 / 1; object-fit: cover">`;
+            }
 
-        for(let i = 0; i < 3; i++){
-            htmlContent += `
-                <div class="col-12 col-md-6 col-lg-4 mt-3">
-                    <h5 class="fw-bold text-center text-white">${data[i].title}</h5>
-                    <img src="https://costionline.com${data[i].imagePath}" class="img-fluid d-block rounded-3" loading="lazy" style="aspect-ratio: 16 / 9; object-fit: cover; width: 100%;" />
-                </div>`;
+            let card = `
+                    <div class="col-12 col-md-6 col-lg-3 mb-4">
+                        <div class="card m-2 h-100">
+                            ${banner}
+                            <div class="card-body pb-0">
+                                ${logoAndTitle}
+                                <p class="card-text">${project.description}</p>
+                            </div>
+                            <div class="flex-shrink-0 p-3">
+                                <div class="d-flex flex-row justify-content-between align-items-end">
+                                    <div>
+                                        <p class="fw-bold mb-1">Created</p>
+                                        <p class="mb-0">${formatTimestamp(project.created)}</p>
+                                    </div>
+                                    <a href="${project.url}" class="btn btn-primary float-end">Repository</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+
+            projectListHTML += card;
         }
 
-        document.querySelector("#project-container").innerHTML = htmlContent;
+        document.querySelector("#project-container").innerHTML = projectListHTML;
+    }
+
+    function formatTimestamp(dateString) {
+        let date = new Date(dateString);
+        let day = ("0" + date.getDate()).slice(-2);
+        let month = ("0" + (date.getMonth() + 1)).slice(-2);
+        let year = date.getFullYear().toString().substr(-2);
+        let hours = date.getHours();
+        let minutes = ("0" + date.getMinutes()).slice(-2);
+        let ampm = hours >= 12 ? 'PM' : 'AM';
+
+        hours = hours % 12;
+        hours = hours ? ("0" + hours).slice(-2) : 12;
+
+        return `${month}/${day}/${year} ${hours}:${minutes} ${ampm}`;
     }
 
     renderSkills();
