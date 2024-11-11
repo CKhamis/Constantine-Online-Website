@@ -27,7 +27,7 @@
         <h2 class="text-center">JavaScript is required to view this page</h2>
     </noscript>
     <div class="container my-4">
-        <p align="center">
+        <p align="center" id="skillsContainer">
             <img src="https://skillicons.dev/icons?i=actix" style="margin:4px;" />
             <img src="https://skillicons.dev/icons?i=azure" style="margin:4px;" />
             <img src="https://skillicons.dev/icons?i=bash" style="margin:4px;" />
@@ -88,6 +88,7 @@
 </main>
 <div th:replace="~{Components :: footer}"></div>
 <div th:replace="~{Components :: JS}"></div>
+<div th:replace="~{Skills :: allSkills}"></div>
 <script>
     let projectList;
     //fetch functions
@@ -106,6 +107,11 @@
         });
 
     //Render
+    renderSkills();
+    function renderSkills(){
+        document.querySelector("#skillsContainer").innerHTML = skills.map(skill => `<img src="${skill.content}" style="margin:4px;" />`).join('');
+    }
+
     function renderProjects(){
         let projectListHTML = ``;
         let webProjectListHTML = ``;
