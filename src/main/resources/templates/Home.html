@@ -4,7 +4,7 @@
 <body class="bg-1 text-1">
 <div th:replace="~{Components :: main-navigation}"></div>
 <style>
-    #education > div{
+    .sjsubg{
         background-image: url('/images/SJSU.webp');
         background-position: right;
         background-size: cover;
@@ -12,12 +12,16 @@
         background-repeat: no-repeat;
     }
 
-    .job-image{
-        min-height:200px;
-        background-position: left;
+    .caltrainbg{
+        background-image: url('/images/Caltrain.webp');
+        background-position: right;
         background-size: cover;
         background-attachment: fixed;
         background-repeat: no-repeat;
+    }
+
+    .education-gradient{
+        background: linear-gradient(to right, #202020 50%, rgba(129, 129, 129, 0) 100%);
     }
 
     .skill{
@@ -32,10 +36,9 @@
             </div>
             <div class="col-lg-6">
                 <h1 class="display-5 fw-bold lh-1 mb-3">Hi! I am Constantine Khamis</h1>
-                <p class="lead">As a dedicated computer science graduate at SJSU my career has been driven by a strong foundation in cybersecurity from my previous internship experiences. I have transitioned my coding projects towards the development of full-stack web-based applications. I am well-versed in using various technologies like NoSQL databases, SQL databases, Java, Rust, and JavaScript for my recent projects, while also continually exploring new frameworks and libraries to create unique and complex projects.</p>
+                <p class="lead">I am a transportation technologist passionate about connecting people, systems, and data through code. I hold a B.S. in Computer Science from San José State University, where I’m also pursuing my M.S. in Transportation Management. My work blends web development, analytics, and system design to create tools that make complex information intuitive and useful.</p>
                 <div class="d-grid gap-2 d-md-flex justify-content-md-start">
-                    <a href="/Downloads/Resume.docx"><button type="button" class="btn btn-primary btn-lg px-4">Download Resume</button></a>
-                    <a href="#contact"><button type="button" class="btn btn-secondary btn-lg px-4">Contact</button></a>
+                    <a href="#contact"><button type="button" class="btn btn-primary btn-lg px-4">Contact</button></a>
                 </div>
             </div>
         </div>
@@ -43,13 +46,32 @@
 
     <div class="container mt-5 px-md-4 px-2" id="education">
         <h2 class="fw-bold border-bottom">Education</h2>
-        <div class="container-fluid p-0 gradient">
-            <div class="container-fluid">
+        <div class="container-fluid p-0 mb-4 caltrainbg">
+            <div class="container-fluid education-gradient p-0">
                 <div class="container py-5">
                     <div class="row">
-                        <div class="col-lg-6 col-md-8 col-xs-12">
-                            <h3 class="fw-bold">San Jose State University</h3>
-                            <p class="text-secondary">Graduated in Spring 2024</p>
+                        <div class="col-lg-6 col-md-8 col-xs-12 px-5">
+                            <h3 class="fw-bold">M.S Transportation Management</h3>
+                            <p class="text-secondary">Graduating 2027, Mineta Transportation Institute</p>
+                            <p class="fs-4">I’m currently pursuing an M.S. in Transportation Management at San José State University, where I explore how technology and data can improve mobility and infrastructure.</p>
+<!--                            <h5 class="fw-bold">Class Highlights</h5>-->
+<!--                            <div class="row">-->
+<!--                                <div class="col-lg-4 col-sm-6 col-xs-6">-->
+<!--                                    <p>Server Programming</p>-->
+<!--                                </div>-->
+<!--                            </div>-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid p-0 sjsubg">
+            <div class="container-fluid education-gradient p-0">
+                <div class="container py-5">
+                    <div class="row">
+                        <div class="col-lg-6 col-md-8 col-xs-12 px-5">
+                            <h3 class="fw-bold">B.S Computer Science</h3>
+                            <p class="text-secondary">San Jose State University</p>
                             <p class="fs-4">I have recently graduated with a bachelor's degree in computer science at San Jose State University. I am currently seeking full time opportunities to start my career.</p>
                             <h5 class="fw-bold">Class Highlights</h5>
                             <div class="row">
@@ -107,43 +129,43 @@
         <div class="row row-cols-3 row-cols-sm-4 row-cols-lg-6 row-cols-xl-8 list-unstyled list" id="tool-container"></div>
     </div>
 
-    <div class="container mt-5 px-md-4 px-2" id="jobs">
-        <h2 class="fw-bold border-bottom">Job History</h2>
+<!--    <div class="container mt-5 px-md-4 px-2" id="jobs">-->
+<!--        <h2 class="fw-bold border-bottom">Job History</h2>-->
 
-        <div class="row mx-0 mb-4">
-            <div class="col-12 col-lg-5 job-image" style="background-image: url('/images/San Jose.webp');"></div>
-            <div class="col-12 col-lg-7 px-4">
-                <h3>Internship at the City of San Jose</h3>
-                <h6 class="text-muted">February 2020 - May 2024</h6>
-                <p>
-                    During my time as a cybersecurity Intern at the City of San Jose, I've had the opportunity to contribute to enhancing the city's cybersecurity measures. My responsibilities included handling archived networking logs, ensuring communication with over 7,000 employees regarding enterprise IT projects, and conducting compliance checks using tools like Defender/Sentinel, Splunk, and more. I played a key role in bolstering the city's security posture in various ways such as rolling out multi factor authentication, Zero Trust Network Access, and installing VPNs. I also assisted employees using ServiceNow and Solwarwinds, addressing an average of 100 tickets each month. To combat phishing threats, I utilized various tools such as KnowBe4, Terranova, Armorblox, and O365 ATP. My contributions have been instrumental in fortifying the city's cybersecurity infrastructure and ensuring the safety of our digital assets.
-                </p>
-            </div>
-        </div>
+<!--        <div class="row mx-0 mb-4">-->
+<!--            <div class="col-12 col-lg-5 job-image" style="background-image: url('/images/San Jose.webp');"></div>-->
+<!--            <div class="col-12 col-lg-7 px-4">-->
+<!--                <h3>Internship at the City of San Jose</h3>-->
+<!--                <h6 class="text-muted">February 2020 - May 2024</h6>-->
+<!--                <p>-->
+<!--                    During my time as a cybersecurity Intern at the City of San Jose, I've had the opportunity to contribute to enhancing the city's cybersecurity measures. My responsibilities included handling archived networking logs, ensuring communication with over 7,000 employees regarding enterprise IT projects, and conducting compliance checks using tools like Defender/Sentinel, Splunk, and more. I played a key role in bolstering the city's security posture in various ways such as rolling out multi factor authentication, Zero Trust Network Access, and installing VPNs. I also assisted employees using ServiceNow and Solwarwinds, addressing an average of 100 tickets each month. To combat phishing threats, I utilized various tools such as KnowBe4, Terranova, Armorblox, and O365 ATP. My contributions have been instrumental in fortifying the city's cybersecurity infrastructure and ensuring the safety of our digital assets.-->
+<!--                </p>-->
+<!--            </div>-->
+<!--        </div>-->
 
-        <div class="row mx-0 mb-4">
-            <div class="col-12 col-lg-5 job-image" style="background-image: url('/images/Home Depot.webp');"></div>
-            <div class="col-12 col-lg-7 px-4">
-                <h3>Order Fulfillment at Home Depot</h3>
-                <h6 class="text-muted">November 2020 - May 2021</h6>
-                <p>
-                    During my time as an Order Fulfilment Associate at Home Depot, I gained valuable experience in customer service. I successfully communicated with hundreds of customers daily, ensuring their needs were met promptly and professionally. This role required me to excel under pressure and meet strict deadlines, demonstrating my ability to thrive in a fast-paced and demanding environment. I undertook the task of memorizing the locations of thousands of products throughout the store to expedite customer inquiries. My time at Home Depot allowed me to hone my customer service skills, work effectively under pressure, and become a knowledgeable resource for customers seeking products in the store.
-                </p>
-            </div>
-        </div>
+<!--        <div class="row mx-0 mb-4">-->
+<!--            <div class="col-12 col-lg-5 job-image" style="background-image: url('/images/Home Depot.webp');"></div>-->
+<!--            <div class="col-12 col-lg-7 px-4">-->
+<!--                <h3>Order Fulfillment at Home Depot</h3>-->
+<!--                <h6 class="text-muted">November 2020 - May 2021</h6>-->
+<!--                <p>-->
+<!--                    During my time as an Order Fulfilment Associate at Home Depot, I gained valuable experience in customer service. I successfully communicated with hundreds of customers daily, ensuring their needs were met promptly and professionally. This role required me to excel under pressure and meet strict deadlines, demonstrating my ability to thrive in a fast-paced and demanding environment. I undertook the task of memorizing the locations of thousands of products throughout the store to expedite customer inquiries. My time at Home Depot allowed me to hone my customer service skills, work effectively under pressure, and become a knowledgeable resource for customers seeking products in the store.-->
+<!--                </p>-->
+<!--            </div>-->
+<!--        </div>-->
 
-        <div class="row mx-0 mb-4">
-            <div class="col-12 col-lg-5 job-image" style="background-image: url('/images/ThreatMetrix.webp');"></div>
-            <div class="col-12 col-lg-7 px-4">
-                <h3>Intern at ThreatMetrix</h3>
-                <h6 class="text-muted">July 2017 - August 2017</h6>
-                <p>
-                    During my brief but valuable internship at ThreatMetrix in July and August 2017, I had the opportunity to gain hands-on experience in web development. My primary role involved modifying website projects using the JavaScript framework D3, which allowed me to enhance my coding and web development skills. Additionally, I had the privilege of overseeing interviews taking place within the company and got accumulated to the company's working environment. This internship was a great learning experience, enabling me to improve my technical skills and providing me with a broader understanding of professional work dynamics.
-                </p>
-            </div>
-        </div>
+<!--        <div class="row mx-0 mb-4">-->
+<!--            <div class="col-12 col-lg-5 job-image" style="background-image: url('/images/ThreatMetrix.webp');"></div>-->
+<!--            <div class="col-12 col-lg-7 px-4">-->
+<!--                <h3>Intern at ThreatMetrix</h3>-->
+<!--                <h6 class="text-muted">July 2017 - August 2017</h6>-->
+<!--                <p>-->
+<!--                    During my brief but valuable internship at ThreatMetrix in July and August 2017, I had the opportunity to gain hands-on experience in web development. My primary role involved modifying website projects using the JavaScript framework D3, which allowed me to enhance my coding and web development skills. Additionally, I had the privilege of overseeing interviews taking place within the company and got accumulated to the company's working environment. This internship was a great learning experience, enabling me to improve my technical skills and providing me with a broader understanding of professional work dynamics.-->
+<!--                </p>-->
+<!--            </div>-->
+<!--        </div>-->
 
-    </div>
+<!--    </div>-->
 
     <div class="container mt-5 px-md-4 px-2" id="contact">
         <h2 class="fw-bold border-bottom">Contact</h2>
@@ -181,6 +203,7 @@
     let container = document.querySelector("#projects");
     let skills = [
         {"category": "lib", "name": "Actix", "content": `https://skillicons.dev/icons?i=actix`},
+        {"category": "tool", "name": "Android Studio", "content": `https://skillicons.dev/icons?i=androidstudio`},
         {"category": "tool", "name": "Azure", "content": `https://skillicons.dev/icons?i=azure`},
         {"category": "tool", "name": "Bash", "content": `https://skillicons.dev/icons?i=bash`},
         {"category": "lib", "name": "Bootstrap", "content": `https://skillicons.dev/icons?i=bootstrap`},
@@ -189,6 +212,7 @@
         {"category": "lang", "name": "CSS", "content": `https://skillicons.dev/icons?i=css`},
         {"category": "lang", "name": "C++", "content": `https://skillicons.dev/icons?i=cpp`},
         {"category": "lib", "name": "D3.js", "content": `https://skillicons.dev/icons?i=d3`},
+        {"category": "lib", "name": "Django", "content": `https://skillicons.dev/icons?i=django`},
         {"category": "tool", "name": "Docker", "content": `https://skillicons.dev/icons?i=docker`},
         {"category": "lib", "name": "Fast API", "content": `https://skillicons.dev/icons?i=fastapi`},
         {"category": "tool", "name": "Git", "content": `https://skillicons.dev/icons?i=git`},
@@ -199,17 +223,23 @@
         {"category": "lang", "name": "JavaScript", "content": `https://skillicons.dev/icons?i=js`},
         {"category": "lib", "name": "jQuery", "content": `https://skillicons.dev/icons?i=jquery`},
         {"category": "lang", "name": "MySql", "content": `https://skillicons.dev/icons?i=mysql`},
+        {"category": "lib", "name": "Next.js", "content": `https://skillicons.dev/icons?i=nextjs`},
+        {"category": "tool", "name": "Nginx", "content": `https://skillicons.dev/icons?i=nginx`},
+        {"category": "tool", "name": "NPM", "content": `https://skillicons.dev/icons?i=npm`},
         {"category": "lang", "name": "Postgres", "content": `https://skillicons.dev/icons?i=postgres`},
         {"category": "tool", "name": "Postman", "content": `https://skillicons.dev/icons?i=postman`},
+        {"category": "tool", "name": "Premiere Pro", "content": `https://skillicons.dev/icons?i=pr`},
+        {"category": "tool", "name": "Prisma", "content": `https://skillicons.dev/icons?i=prisma`},
         {"category": "lang", "name": "Python", "content": `https://skillicons.dev/icons?i=py`},
         {"category": "lib", "name": "React", "content": `https://skillicons.dev/icons?i=react`},
         {"category": "lang", "name": "Redis", "content": `https://skillicons.dev/icons?i=redis`},
         {"category": "lang", "name": "Rust", "content": `https://skillicons.dev/icons?i=rust`},
         {"category": "lang", "name": "Sass", "content": `https://skillicons.dev/icons?i=sass`},
         {"category": "lib", "name": "Java Spring", "content": `https://skillicons.dev/icons?i=spring`},
+        {"category": "lib", "name": "Tailwind", "content": `https://skillicons.dev/icons?i=tailwind`},
         {"category": "lib", "name": "Tensorflow", "content": `https://skillicons.dev/icons?i=tensorflow`},
         {"category": "lang", "name": "TypeScript", "content": `https://skillicons.dev/icons?i=ts`},
-        {"category": "lang", "name": "Wordpress", "content": `https://skillicons.dev/icons?i=wordpress`},
+        {"category": "tool", "name": "Wordpress", "content": `https://skillicons.dev/icons?i=wordpress`},
         {"category": "tool", "name": "Xd", "content": `https://skillicons.dev/icons?i=xd`}
     ];
 
